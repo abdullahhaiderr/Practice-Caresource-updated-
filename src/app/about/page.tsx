@@ -8,6 +8,7 @@ import { PageHeroImage } from "@/components/page-hero-image";
 import { serviceCatalog } from "@/data/services";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { SectionHeading } from "@/components/section-heading";
+import { WaveDivider } from "@/components/wave-divider";
 import { aboutStructuredData, serializeJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {

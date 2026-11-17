@@ -63,7 +63,6 @@ export function LegalPageShell({
             <div className="mt-10 divide-y divide-brand-border border-y border-brand-border">
               {sections.map((section,index)=>(
                 <section key={section.heading} id={`legal-section-${index}`} aria-labelledby={`legal-heading-${index}`} className="scroll-mt-28 py-8 sm:py-9">
-                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-accent-ink">Section {String(index+1).padStart(2,"0")}</p>
                   <h2 id={`legal-heading-${index}`} className="mt-2 font-display text-2xl font-semibold leading-tight text-brand-navy sm:text-3xl">{section.heading}</h2>
                   <div className="mt-4 max-w-[72ch] space-y-4 text-base leading-[1.85] text-brand-slate">
                     {section.paragraphs.map((paragraph,paragraphIndex)=><p key={paragraphIndex}>{paragraph}</p>)}
