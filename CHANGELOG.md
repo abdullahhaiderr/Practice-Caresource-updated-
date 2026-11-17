@@ -80,8 +80,10 @@
 - Reworked Security guidance from repetitive cards into a numbered editorial list.
 
 - Added the slow testimonial marquee motion with pause-on-hover/focus and a manual pause control; reduced-motion users retain a manually scrollable row.
-- Added the same gently animated wave transition above the existing footer without changing its layout or content.
+- Retained the existing footer wave and slowed the three layered wave motions to 18, 25 and 33 seconds.
 
 - Reworked the Privacy Policy and Terms of Use presentation into an accessible editorial reading layout with section navigation; retained their draft notice and existing `noindex` metadata.
 
 - Rebuilt the homepage content sections with an editorial list, connected service imagery, a non-card process timeline, restored testimonials, and more varied section compositions.
+
+- Enabled the ZIP-supplied testimonial section through the central site feature flag after the owner's explicit approval.

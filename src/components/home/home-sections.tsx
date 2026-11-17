@@ -7,7 +7,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { ServiceCard } from "@/components/service-card";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { serviceCatalog } from "@/data/services";
-import { footerContact } from "@/lib/site";
+import { footerContact, siteFeatures } from "@/lib/site";
 
 const challenges = [
   ["Claims that need follow-up", "Keep returned items, missing details, and payer responses visible to the right people."],
@@ -124,7 +124,7 @@ export function HomeSections() {
         </Container>
       </section>
 
-      <TestimonialsSection/>
+      {siteFeatures.testimonials ? <TestimonialsSection/> : null}
 
       <section className="bg-white py-14 sm:py-18 lg:py-22">
         <Container className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center lg:gap-16">

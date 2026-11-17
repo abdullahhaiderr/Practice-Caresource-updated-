@@ -37,7 +37,7 @@ export const siteConfig = {
     announcementBar: false,
     newsletter: false,
     consultationPopup: false,
-    testimonials: false,
+    testimonials: true,
     coverageHighlights: false,
     analytics: false,
   },
