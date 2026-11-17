@@ -97,6 +97,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           <PageHeroImage src={service.imageSrc} alt={service.imageAlt} />
         </Container>
       </section>
+      <WaveDivider tone="to-light"/>
 
       <section className="py-10 sm:py-12 lg:py-16">
         <Container className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">

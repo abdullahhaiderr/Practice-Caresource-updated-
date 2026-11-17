@@ -57,6 +57,7 @@ export default function ServicesPage() {
           <PageHeroImage src={serviceCatalog[2].imageSrc} alt="A team member coordinating work in a professional office" />
         </Container>
       </section>
+      <WaveDivider tone="to-light"/>
 
       <section id="all-services" className="py-10 sm:py-12 lg:py-16">
         <Container>

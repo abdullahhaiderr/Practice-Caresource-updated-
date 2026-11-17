@@ -69,6 +69,7 @@ export default function SecurityPage() {
           </ScrollReveal>
         </Container>
       </section>
+      <WaveDivider tone="to-light"/>
 
       <section className="py-14 sm:py-16 lg:py-20">
         <Container>
