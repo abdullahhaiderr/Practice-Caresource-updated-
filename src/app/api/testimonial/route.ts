@@ -85,14 +85,59 @@ async function readJsonBody(request: NextRequest): Promise<unknown> {
   return JSON.parse(new TextDecoder().decode(bodyBytes)) as unknown;
 }
 
+function jsonResponse(body: unknown, init: ResponseInit = {}) {
+  const headers = new Headers(init.headers);
+  headers.set("Cache-Control", "no-store");
+  return NextResponse.json(body, { ...init, headers });
+}
+
+function isAllowedOrigin(request: NextRequest) {
+  const originHeader = request.headers.get("origin");
+  if (!originHeader) return true;
+
+  let origin: URL;
+  try {
+    origin = new URL(originHeader);
+  } catch {
+    return false;
+  }
+
+  const forwardedHost = request.headers.get("x-forwarded-host")?.split(",")[0]?.trim();
+  const requestHost = forwardedHost || request.headers.get("host") || "";
+  const forwardedProto = request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim();
+  const requestProto = forwardedProto || request.nextUrl.protocol.replace(":", "");
+
+  if (
+    requestHost &&
+    origin.host.toLowerCase() === requestHost.toLowerCase() &&
+    origin.protocol.toLowerCase() === `${requestProto.toLowerCase()}:`
+  ) return true;
+
+  const canonical = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (!canonical) return false;
+
+  try {
+    return origin.origin === new URL(canonical).origin;
+  } catch {
+    return false;
+  }
+}
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
 export async function POST(request: NextRequest) {
+  if (!isAllowedOrigin(request)) {
+    return jsonResponse(
+      { message: "This request could not be verified. Please use the website review form." },
+      { status: 403 },
+    );
+  }
+
   const contentType = request.headers.get("content-type") ?? "";
   if (!contentType.toLowerCase().includes("application/json")) {
-    return NextResponse.json(
+    return jsonResponse(
       { message: "Please submit the review using the website form." },
       { status: 415 },
     );
@@ -100,7 +145,7 @@ export async function POST(request: NextRequest) {
 
   const contentLength = Number(request.headers.get("content-length"));
   if (Number.isFinite(contentLength) && contentLength > MAX_BODY_BYTES) {
-    return NextResponse.json(
+    return jsonResponse(
       { message: "Your review is too large. Please shorten it and try again." },
       { status: 413 },
     );
@@ -108,7 +153,7 @@ export async function POST(request: NextRequest) {
 
   const rateLimit = checkRateLimit(getClientKey(request));
   if (!rateLimit.allowed) {
-    return NextResponse.json(
+    return jsonResponse(
       { message: "Too many reviews were submitted. Please wait a few minutes and try again." },
       {
         status: 429,
@@ -122,20 +167,20 @@ export async function POST(request: NextRequest) {
     body = await readJsonBody(request);
   } catch (error) {
     if (error instanceof RangeError) {
-      return NextResponse.json(
+      return jsonResponse(
         { message: "Your review is too large. Please shorten it and try again." },
         { status: 413 },
       );
     }
 
-    return NextResponse.json(
+    return jsonResponse(
       { message: "We couldn't read the review form. Please try again." },
       { status: 400 },
     );
   }
 
   if (isRecord(body) && typeof body.website === "string" && body.website.trim()) {
-    return NextResponse.json({
+    return jsonResponse({
       success: true,
       message: "Thank you. Your review has been received for review.",
     });
@@ -143,7 +188,7 @@ export async function POST(request: NextRequest) {
 
   const parsed = reviewSubmissionSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json(
+    return jsonResponse(
       {
         message: "Please check the required fields and submit your review again.",
         errors: parsed.error.issues.map((issue) => ({
@@ -160,7 +205,7 @@ export async function POST(request: NextRequest) {
   const sender = process.env.CONTACT_FROM_EMAIL;
 
   if (!apiKey || !recipient || !sender) {
-    return NextResponse.json(
+    return jsonResponse(
       { message: "Review submission is not available right now. Please try again later." },
       { status: 503 },
     );
@@ -188,13 +233,13 @@ export async function POST(request: NextRequest) {
 
   if (error || !data) {
     console.error("Practice Care Source review email delivery failed.");
-    return NextResponse.json(
+    return jsonResponse(
       { message: "We couldn't send your review right now. Please try again later." },
       { status: 502 },
     );
   }
 
-  return NextResponse.json({
+  return jsonResponse({
     success: true,
     message: "Thanks. Your review was sent to Practice Care Source for review. We’ll contact you before publishing it.",
   });

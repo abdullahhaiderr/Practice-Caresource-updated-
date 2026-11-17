@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getCanonicalUrl } from "@/lib/site";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, Check, ChevronRight } from "lucide-react";
@@ -29,6 +30,7 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   return {
     title: service.title,
     description: service.description,
+    alternates: { canonical: getCanonicalUrl(`/services/${service.slug}`) },
     openGraph: {
       title: `${service.title} | Practice Care Source`,
       description: service.description,

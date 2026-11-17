@@ -62,6 +62,16 @@ To test delivery, configure a Resend API key and a verified CONTACT_FROM_EMAIL s
 
 Do not treat draft legal wording as legal advice or as evidence of compliance with a particular privacy law. Obtain jurisdiction-specific review before removing the draft notice or enabling indexing.
 
+## SEO, security, and release checks
+
+- Public page canonical URLs are generated only when NEXT_PUBLIC_SITE_URL is set to the confirmed production origin. No production domain is inferred.
+- /robots.txt allows public pages and disallows /api/. It advertises /sitemap.xml only when the canonical origin is configured.
+- /sitemap.xml includes the homepage, company/contact/security pages, service pages, the resource index, and article pages. Draft legal pages are excluded. If NEXT_PUBLIC_SITE_URL is unset, the sitemap is empty until the real site origin is supplied.
+- The Next.js configuration adds no-sniff, frame-denial, referrer, permissions, and permitted-cross-domain headers. HSTS is emitted only for production builds with an HTTPS canonical URL.
+- No static Content Security Policy is added yet. The current app uses Next.js inline runtime behavior, Google-hosted font assets, remote resource imagery, and optional Turnstile; deploy a tested CSP after validating those sources rather than risking a broken production site.
+- GitHub Actions runs npm ci, the source lint, TypeScript typecheck, and Next.js production build on pushes and pull requests targeting main.
+- This repository's code changes do not by themselves verify Vercel configuration, a custom-domain DNS setup, real email delivery, or a browser/Lighthouse result.
+
 ## Main routes
 
 - /

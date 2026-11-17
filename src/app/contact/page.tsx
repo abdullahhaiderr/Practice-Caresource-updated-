@@ -16,7 +16,7 @@ import { footerContact } from "@/lib/site";
 import { serviceCatalog } from "@/data/services";
 
 export const metadata: Metadata = {
-  title: "Contact Practice Care Source",
+  title: "Contact",
   description:
     "Contact Practice Care Source to discuss medical billing and practice support for your team.",
 };

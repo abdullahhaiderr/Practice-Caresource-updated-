@@ -43,6 +43,20 @@ export const siteConfig = {
   },
 };
 
+/**
+ * Return an absolute URL only after the production origin is explicitly configured.
+ * This avoids inventing a canonical domain in metadata or search-engine files.
+ */
+export function getCanonicalUrl(path: string): string | undefined {
+  if (!siteConfig.canonicalUrl) return undefined;
+  try {
+    const target = new URL(path, siteConfig.canonicalUrl);
+    return target.origin === siteConfig.canonicalUrl ? target.toString() : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 export const navigationLinks: SiteLink[] = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },

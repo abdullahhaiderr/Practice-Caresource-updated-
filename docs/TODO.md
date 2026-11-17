@@ -31,8 +31,21 @@
 - Confirm how support should handle a form submission that appears to contain sensitive patient data.
 - Keep optional analytics disabled. If analytics are ever added, implement a consent gate that reads the saved browser preference before loading any analytics code.
 
-## Remaining redesign work
-- Version 6: SEO, analytics consent enforcement if analytics are approved, security, responsive, accessibility, performance, and release checks.
+## Final release readiness
+- Set NEXT_PUBLIC_SITE_URL to the confirmed production HTTPS origin in Vercel. Until then, page canonical URLs are omitted and /sitemap.xml intentionally returns an empty list.
+- Verify /robots.txt and /sitemap.xml against the real production domain after deployment.
+- Confirm the Vercel project/build settings, custom-domain DNS, redirects, environment variables, and deployment output.
+- Complete qualified legal review of /privacy-policy and /terms-of-use. User approval of the draft copy does not replace jurisdiction-specific legal review. Keep both pages noindex until then.
+- Confirm the real email sender and test admin notification plus customer receipt with a real Resend configuration.
+- Configure the matching Cloudflare Turnstile keys if the site owner wants the additional challenge enabled.
+- Consider a shared rate-limit store or provider WAF for distributed production rate limiting; current in-memory limits apply per instance only.
+- Test the production pages at mobile, tablet, and desktop widths, including navigation, form submission, privacy preferences, and error states.
+- Run a keyboard/screen-reader check, automated accessibility audit, and Lighthouse or equivalent performance review against the deployed site.
+- Do not add analytics until an analytics provider is selected and its initialization reads the stored consent preference before loading any tracking code.
+- Review and test a Content Security Policy in staging before enabling one; account for the current Next.js runtime, Google-hosted fonts, remote Unsplash images, and optional Cloudflare Turnstile.
+
+## Redesign checkpoints
+- Version 1 through Version 6 are complete in the repository; the remaining items above are release configuration, legal review, and live-environment verification rather than another redesign milestone.
 
 ## Test limitations
 - Run npm ci before full TypeScript and Next.js build checks.

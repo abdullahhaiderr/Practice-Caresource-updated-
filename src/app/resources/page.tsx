@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getCanonicalUrl } from "@/lib/site";
 import { ArrowDown, BookOpenText } from "lucide-react";
 import { Container } from "@/components/container";
 import { ResourcesExplorer } from "@/components/resources/resources-explorer";
@@ -17,6 +18,7 @@ export const metadata: Metadata = {
       "Explore practical resources about medical billing, credentialing, denials, AR follow-up, and practice support.",
     type: "website",
   },
+  alternates: { canonical: getCanonicalUrl("/resources") },
 };
 
 const resourceCards = resourceArticles.map((article) => ({

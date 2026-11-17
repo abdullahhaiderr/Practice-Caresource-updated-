@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getCanonicalUrl } from "@/lib/site";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/button";
@@ -15,6 +16,7 @@ export const metadata: Metadata = {
   title: "Services",
   description:
     "Explore medical billing, credentialing, virtual assistant, AR recovery, denial management, and website development support from Practice Care Source.",
+  alternates: { canonical: getCanonicalUrl("/services") },
 };
 
 export default function ServicesPage() {

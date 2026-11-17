@@ -18,7 +18,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { aboutStructuredData, serializeJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
-  title: "About Practice Care Source",
+  title: "About",
   description:
     "Learn how Practice Care Source brings medical billing and practice support together for healthcare providers.",
 };

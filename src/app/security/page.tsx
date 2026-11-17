@@ -6,12 +6,13 @@ import { Container } from "@/components/container";
 import { SectionHeading } from "@/components/section-heading";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { breadcrumbStructuredData, serializeJsonLd } from "@/lib/structured-data";
-import { siteConfig } from "@/lib/site";
+import { getCanonicalUrl, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Security and Information Handling",
   description:
     "Guidance for discussing access, confidential practice information, and business inquiries with Practice Care Source.",
+  alternates: { canonical: getCanonicalUrl("/security") },
 };
 
 const guidance = [

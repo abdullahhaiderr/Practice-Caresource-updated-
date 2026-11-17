@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getCanonicalUrl } from "@/lib/site";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -48,6 +49,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
   return {
     title: article.title,
     description: article.description,
+    alternates: { canonical: getCanonicalUrl(`/resources/${article.slug}`) },
     openGraph: {
       type: "article",
       title: article.title,
@@ -70,6 +72,7 @@ function createArticleSchema(article: ResourceArticle) {
     "@type": "Article",
     headline: article.title,
     description: article.description,
+    ...(getCanonicalUrl(`/resources/${article.slug}`) ? { mainEntityOfPage: getCanonicalUrl(`/resources/${article.slug}`) } : {}),
     image: [article.coverImage],
     publisher: {
       "@type": "Organization",

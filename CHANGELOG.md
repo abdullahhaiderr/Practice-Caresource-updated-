@@ -42,3 +42,14 @@
 - Added footer links to the legal drafts and branded favicon, app icon, Apple touch icon, and web manifest.
 - Added custom not-found, route error, and global error handling pages.
 - Documented legal, privacy, hosting/vendor, retention, analytics, and testing confirmations that remain outstanding.
+
+## Version 6: SEO, security, accessibility, performance, and release checks
+- Added a canonical URL helper that generates absolute URLs only from the explicitly configured NEXT_PUBLIC_SITE_URL value.
+- Added metadata canonical URLs for all public static and dynamic content routes, while keeping draft legal pages noindex.
+- Added a robots route that disallows API endpoints and references the sitemap only when the production origin is configured.
+- Added a sitemap route for the homepage, service catalog, resource library, and article pages; draft privacy/terms routes are excluded.
+- Added baseline security response headers and disabled the Next.js powered-by header. HSTS is conditional on a production build with an HTTPS canonical origin.
+- Added same-origin checks and no-store response headers to the testimonial submission API.
+- Added GitHub Actions quality checks for npm install, source lint, TypeScript typecheck, and production build.
+- Kept analytics disabled and did not add tracking scripts; the privacy preference is not a license to activate analytics without a future consent-gated integration.
+- Documented domain, security-policy, email, legal-review, browser, and Lighthouse items that still require real environment or manual verification.
