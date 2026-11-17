@@ -1,14 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Check,
-  ClipboardCheck,
-  Eye,
-  Handshake,
-  ListChecks,
-  Workflow,
-} from "lucide-react";
+import { ArrowRight, Check, ClipboardCheck, Eye, Handshake, Workflow } from "lucide-react";
 import { Button } from "@/components/button";
 import { Container } from "@/components/container";
 import { PageHeroImage } from "@/components/page-hero-image";
@@ -19,170 +11,68 @@ import { aboutStructuredData, serializeJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: "About",
-  description:
-    "Learn how Practice Care Source brings medical billing and practice support together for healthcare providers.",
+  description: "Learn how Practice Care Source brings medical billing and practice support together for healthcare providers.",
 };
 
-const values = [
-  {
-    title: "Accuracy",
-    description:
-      "We work from the information and workflows your practice provides, and flag questions for your team to review.",
-    icon: ClipboardCheck,
-  },
-  {
-    title: "Transparency",
-    description:
-      "Responsibilities, communication, and review points are agreed with your practice before work begins.",
-    icon: Eye,
-  },
-  {
-    title: "Partnership",
-    description:
-      "Support is planned around your team's existing processes, preferences, and priorities.",
-    icon: Handshake,
-  },
+const principles = [
+  { icon: ClipboardCheck, title: "Care with the details", body: "Work starts from the information and workflows your practice provides. Questions and missing details are surfaced for review." },
+  { icon: Eye, title: "Clarity at every handoff", body: "Responsibilities, communication, and review points are discussed with your practice before work begins." },
+  { icon: Handshake, title: "Support that fits", body: "The scope is planned around your team's processes, preferences, and priorities rather than forcing a one-size-fits-all workflow." },
 ];
 
-const onboardingSteps = [
-  {
-    title: "Listen",
-    description:
-      "We learn what your practice wants to improve and how your current workflow operates.",
-  },
-  {
-    title: "Define the scope",
-    description:
-      "Together, we clarify the tasks, responsibilities, and decisions that stay with your team.",
-  },
-  {
-    title: "Agree on handoffs",
-    description:
-      "We set expectations for communication, questions, approvals, and the information needed to begin.",
-  },
-  {
-    title: "Start with the agreed work",
-    description:
-      "Support begins within the scope and process your practice has reviewed.",
-  },
-  {
-    title: "Review together",
-    description:
-      "We check in on open items and discuss any adjustments with the appropriate practice contact.",
-  },
-];
-
-const vendorChallenges = [
-  "Repeat background and instructions across different contacts",
-  "Coordinate handoffs between separate service providers",
-  "Track who owns the next step for each open item",
-];
-
-const connectedSupport = [
-  "Choose the service mix that fits your practice",
-  "Keep agreed responsibilities and handoffs visible",
-  "Coordinate related support through one Practice Care Source relationship",
+const steps = [
+  ["Listen first", "Understand the practice, current workflow, goals, and the tasks where support is being explored."],
+  ["Define the scope", "Clarify responsibilities, systems, priorities, approvals, and what remains with the practice."],
+  ["Agree on handoffs", "Set expectations for communication, questions, missing information, and review."],
+  ["Begin the agreed work", "Start within the scope and process the practice has reviewed."],
+  ["Review together", "Discuss open items and agree any adjustments with the appropriate practice contact."],
 ];
 
 export default function AboutPage() {
   return (
     <main id="main-content">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(aboutStructuredData()) }} />
-      <section className="relative isolate overflow-hidden border-b border-brand-border/70 bg-brand-background py-8 sm:py-10 lg:py-12 lg:pb-6">
-        <Container className="relative grid items-start gap-10 lg:min-h-[25rem] lg:grid-cols-[1.15fr_0.85fr]">
-          <ScrollReveal className="max-w-3xl lg:max-w-none">
-            <nav aria-label="Breadcrumb" className="mb-4">
-              <ol className="flex items-center gap-2 text-sm font-semibold text-brand-slate">
-                <li>
-                  <Link
-                    href="/"
-                    className="rounded-sm transition-colors hover:text-brand-accent-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-ink"
-                  >
-                    Home
-                  </Link>
-                </li>
-                <li aria-hidden="true">/</li>
-                <li aria-current="page" className="text-brand-dark">
-                  About
-                </li>
-              </ol>
-            </nav>
-            <p className="mb-3 text-sm font-bold uppercase tracking-[0.16em] text-brand-accent-ink">
-              About Practice Care Source
-            </p>
-            <h1 className="text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight text-brand-dark sm:text-6xl lg:min-h-[2em] lg:text-7xl">
-              The source of care for providers.
-            </h1>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-brand-slate sm:text-lg lg:min-h-[5.5rem]">
-              Practice Care Source brings medical billing and practice support together
-              for healthcare providers, with clear responsibilities and
-              thoughtful coordination around your team's way of working.
-            </p>
-            <div className="mt-6 flex min-h-14 flex-col gap-3 sm:flex-row sm:items-center">
-              <Button href="/contact" size="lg" showArrow>
-                Request a Consultation
-              </Button>
-              <Button href="#our-story" variant="ghost" size="lg">
-                Our approach
-              </Button>
-            </div>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{__html:serializeJsonLd(aboutStructuredData())}}/>
+      <section className="relative isolate overflow-hidden bg-brand-navy pb-10 pt-8 text-white sm:pb-14 lg:pb-16">
+        <div className="pointer-events-none absolute -right-36 -top-44 size-[38rem] rounded-full border border-white/10" aria-hidden="true"/>
+        <Container className="relative grid items-center gap-10 lg:min-h-[27rem] lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+          <ScrollReveal className="max-w-3xl">
+            <nav aria-label="Breadcrumb" className="mb-7 text-sm font-semibold text-white/55"><ol className="flex items-center gap-2"><li><Link href="/" className="hover:text-white">Home</Link></li><li aria-hidden="true">/</li><li aria-current="page" className="text-white">About</li></ol></nav>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-sky">About Practice Care Source</p>
+            <h1 className="mt-5 text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight sm:text-6xl lg:text-[4.4rem]">Practice support built around <span className="text-brand-sky">the people doing the work.</span></h1>
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/72 sm:text-lg">Practice Care Source brings medical billing and related practice support together for healthcare providers, with clear responsibilities and thoughtful coordination around each team's way of working.</p>
+            <div className="mt-8 flex flex-wrap gap-3"><Button href="/contact" size="lg" showArrow>Start a conversation</Button><Link href="/services" className="inline-flex min-h-14 items-center gap-2 rounded-full border border-white/25 px-6 text-sm font-bold text-white hover:bg-white/10">Explore services <ArrowRight size={16}/></Link></div>
           </ScrollReveal>
-          <PageHeroImage src={serviceCatalog[0].imageSrc} alt="Healthcare professional reviewing information at a clinic" />
+          <PageHeroImage src={serviceCatalog[0].imageSrc} alt="Healthcare professional reviewing information in a clinic"/>
         </Container>
+        <WaveDivider tone="to-light"/>
       </section>
 
-      <section id="our-story" className="py-10 sm:py-12 lg:py-16">
-        <Container className="grid items-center gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:gap-16">
-          <ScrollReveal className="mx-auto w-full max-w-sm lg:max-w-none">
-            <div className="relative overflow-hidden rounded-3xl border border-brand-border bg-brand-dark p-6 text-brand-background shadow-card sm:p-8">
-              <div className="absolute -right-12 -top-12 size-48 rounded-full border border-brand-accent/35" aria-hidden="true" />
-              <div className="relative">
-                <p className="text-sm font-bold uppercase tracking-[0.14em] text-brand-accent">Practice support</p>
-                <h2 className="mt-3 font-display text-3xl font-semibold leading-tight">Services shaped around your workflow</h2>
-                <ul className="mt-6 space-y-3 text-sm font-semibold text-brand-background/85">
-                  {serviceCatalog.map((service) => (
-                    <li key={service.slug} className="flex items-center gap-3">
-                      <Check size={17} className="shrink-0 text-brand-accent" aria-hidden="true" />
-                      {service.shortTitle}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+      <section id="our-approach" className="py-14 sm:py-18 lg:py-24">
+        <Container className="grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+          <ScrollReveal className="relative">
+            <div className="relative aspect-[4/5] max-h-[34rem] overflow-hidden rounded-t-[48%] rounded-b-[1.5rem] bg-brand-background-wash">
+              <PageHeroImage src={serviceCatalog[2].imageSrc} alt="Professional team working together"/>
             </div>
+            <div className="absolute -bottom-5 -right-4 hidden max-w-[15rem] border border-brand-border bg-white p-5 shadow-card sm:block"><p className="font-display text-xl font-semibold text-brand-navy">Human communication.</p><p className="mt-1 text-sm text-brand-slate">Clear scope and agreed handoffs.</p></div>
           </ScrollReveal>
-
           <ScrollReveal>
-            <SectionHeading
-              eyebrow="Our approach"
-              title="Practice support, shaped around people."
-              description="Practice Care Source brings medical billing and related practice support under one roof for healthcare providers."
-            /><p className="mt-6 text-base leading-relaxed text-brand-slate sm:text-lg">The service scope, responsibilities, and review points are discussed with each practice before work begins. This helps teams understand what is included and where their input is needed.</p>
+            <SectionHeading eyebrow="Our approach" title="A working relationship should feel clear, not complicated." description="Every practice has its own systems, responsibilities, and priorities. A useful starting point is to understand the work before deciding how support should fit."/>
+            <p className="mt-6 max-w-2xl text-base leading-[1.85] text-brand-slate sm:text-lg">The service scope, responsibilities, and review points are discussed with each practice before work begins. This gives both teams a shared understanding of what is included, where practice input is needed, and how questions should be handled.</p>
+            <Link href="/contact" className="mt-7 inline-flex min-h-11 items-center gap-2 font-bold text-brand-accent-ink underline decoration-brand-sky underline-offset-4">Talk through your workflow <ArrowRight size={17}/></Link>
           </ScrollReveal>
         </Container>
       </section>
 
-      <section className="border-y border-brand-border/75 bg-brand-background-wash/30 py-10 sm:py-12 lg:py-16">
+      <section className="border-y border-brand-border bg-brand-background-wash/45 py-14 sm:py-18 lg:py-22">
         <Container>
-          <ScrollReveal>
-            <SectionHeading
-              eyebrow="What guides us"
-              title="A steady approach to practice support"
-              description="Our working principles keep the scope clear and make it easier for your team to stay involved where its input is needed."
-            />
-          </ScrollReveal>
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
-            {values.map(({ title, description, icon: Icon }, index) => (
-              <ScrollReveal key={title} delay={index * 0.06} className="h-full">
-                <article className="group h-full rounded-2xl border border-brand-border bg-brand-background p-6 shadow-card transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-accent/50 hover:shadow-card-hover motion-reduce:transition-none sm:p-7">
-                  <span className="grid size-12 place-items-center rounded-xl border border-brand-accent/15 bg-brand-peach/65 text-brand-accent-ink shadow-sm transition-transform duration-300 group-hover:rotate-3 motion-reduce:transition-none">
-                    <Icon size={23} strokeWidth={1.8} aria-hidden="true" />
-                  </span>
-                  <h2 className="mt-6 font-display text-2xl font-semibold text-brand-dark sm:text-3xl">
-                    {title}
-                  </h2>
-                  <p className="mt-3 text-base leading-relaxed text-brand-slate">
-                    {description}
-                  </p>
+          <ScrollReveal><SectionHeading eyebrow="What guides our work" title="Three principles. One thoughtful approach." description="These principles shape how the work is scoped, communicated, and reviewed."/></ScrollReveal>
+          <div className="mt-10 divide-y divide-brand-border border-y border-brand-border">
+            {principles.map(({icon:Icon,title,body},index)=>(
+              <ScrollReveal key={title} delay={index*0.06}>
+                <article className="grid gap-4 py-7 sm:grid-cols-[5rem_0.7fr_1.3fr] sm:items-center sm:gap-8">
+                  <span className="font-display text-4xl font-semibold text-brand-accent/45">0{index+1}</span>
+                  <div className="flex items-center gap-3"><span className="grid size-11 place-items-center rounded-xl bg-white text-brand-accent-ink shadow-sm"><Icon size={21}/></span><h3 className="font-display text-2xl font-semibold text-brand-navy">{title}</h3></div>
+                  <p className="max-w-2xl text-base leading-relaxed text-brand-slate">{body}</p>
                 </article>
               </ScrollReveal>
             ))}
@@ -190,157 +80,42 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="bg-brand-dark py-10 text-brand-background sm:py-12 lg:py-16">
+      <section className="bg-brand-navy py-14 text-white sm:py-18 lg:py-22">
         <Container>
-          <ScrollReveal>
-            <div className="max-w-3xl">
-              <p className="mb-3 text-sm font-bold uppercase tracking-[0.16em] text-brand-accent">
-                Connected practice support
-              </p>
-              <h2 className="text-balance font-display text-4xl font-semibold leading-[1.02] tracking-tight text-brand-background sm:text-5xl lg:text-6xl">
-                Why bring it under one roof?
-              </h2>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-brand-background/75 sm:text-lg">
-                Practices can choose support across billing, enrollment,
-                and administrative coordination. A connected relationship can
-                make responsibilities and handoffs easier to discuss.
-              </p>
-            </div>
-          </ScrollReveal>
-
-          <div className="mt-8 grid gap-4 lg:grid-cols-2">
-            <ScrollReveal className="h-full">
-              <article className="h-full rounded-2xl border border-brand-accent/45 bg-brand-background/10 p-6 transition-[border-color,background-color,transform] duration-300 hover:-translate-y-1 hover:border-brand-accent/75 hover:bg-brand-background/[0.13] motion-reduce:transition-none sm:p-8">
-                <div className="flex items-center gap-3">
-                  <span className="grid size-11 place-items-center rounded-xl bg-brand-accent text-brand-background">
-                    <ListChecks size={21} aria-hidden="true" />
-                  </span>
-                  <h3 className="font-display text-2xl font-semibold text-brand-background sm:text-3xl">
-                    Juggling separate vendors
-                  </h3>
-                </div>
-                <ul className="mt-6 space-y-4">
-                  {vendorChallenges.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-base leading-relaxed text-brand-background/75">
-                      <ArrowRight size={18} className="mt-1 shrink-0 text-brand-accent" aria-hidden="true" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.08} className="h-full">
-              <article className="h-full rounded-2xl border border-brand-accent/45 bg-brand-background/10 p-6 transition-[border-color,background-color,transform] duration-300 hover:-translate-y-1 hover:border-brand-accent/75 hover:bg-brand-background/[0.13] motion-reduce:transition-none sm:p-8">
-                <div className="flex items-center gap-3">
-                  <span className="grid size-11 place-items-center rounded-xl bg-brand-accent text-brand-background">
-                    <Workflow size={21} aria-hidden="true" />
-                  </span>
-                  <h3 className="font-display text-2xl font-semibold text-brand-background sm:text-3xl">
-                    One connected team
-                  </h3>
-                </div>
-                <ul className="mt-6 space-y-4">
-                  {connectedSupport.map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-base leading-relaxed text-brand-background/85">
-                      <Check size={18} className="mt-1 shrink-0 text-brand-accent" aria-hidden="true" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            </ScrollReveal>
+          <ScrollReveal><SectionHeading eyebrow="A connected service mix" title="Different needs, one place to start." description="Explore the services currently listed by Practice Care Source. The right combination depends on your practice and the work you want to discuss."/></ScrollReveal>
+          <div className="mt-8 grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
+            {serviceCatalog.map((service,index)=>(
+              <Link key={service.slug} href={`/services/${service.slug}`} className="group flex min-h-20 items-center justify-between gap-4 border-b border-white/15 py-5 transition-colors hover:border-brand-sky">
+                <span><span className="block text-xs font-bold tracking-[0.15em] text-brand-sky/75">0{index+1}</span><span className="mt-1 block font-display text-xl font-semibold text-white group-hover:text-brand-sky">{service.shortTitle}</span></span>
+                <ArrowRight size={18} className="shrink-0 text-white/50 transition-transform group-hover:translate-x-1 group-hover:text-brand-sky"/>
+              </Link>
+            ))}
           </div>
         </Container>
       </section>
 
-      <section className="py-10 sm:py-12 lg:py-16">
+      <section className="py-14 sm:py-18 lg:py-22">
         <Container>
-          <ScrollReveal>
-            <SectionHeading
-              eyebrow="How we work with you"
-              title="A clear path from first conversation to ongoing work"
-              description="We agree on scope and communication with your practice before support begins. Each step leaves room for your team's review and decisions."
-            />
-          </ScrollReveal>
-          <ol className="mt-8 grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {onboardingSteps.map(({ title, description }, index) => (
-              <li key={title} className="h-full">
-                <ScrollReveal delay={index * 0.045} className="flex h-full">
-                  <article className="group h-full rounded-2xl border border-brand-border bg-brand-background p-5 shadow-card transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-accent/50 hover:shadow-card-hover motion-reduce:transition-none sm:p-6">
-                    <span className="grid size-11 place-items-center rounded-full border border-brand-accent/15 bg-brand-peach/65 text-sm font-bold text-brand-accent-ink shadow-sm transition-transform duration-300 group-hover:scale-105 motion-reduce:transition-none">
-                      0{index + 1}
-                    </span>
-                    <h3 className="mt-5 font-display text-xl font-semibold leading-tight text-brand-dark sm:text-2xl">
-                      {title}
-                    </h3>
-                    <p className="mt-3 text-base leading-relaxed text-brand-slate">
-                      {description}
-                    </p>
-                  </article>
-                </ScrollReveal>
+          <ScrollReveal><SectionHeading eyebrow="How we begin" title="From first conversation to a clear scope" description="The onboarding sequence is tailored to the services and tools your practice wants to discuss."/></ScrollReveal>
+          <ol className="mt-10 grid gap-0 lg:grid-cols-5">
+            {steps.map(([title,body],index)=>(
+              <li key={title} className="relative border-l border-brand-border py-2 pl-6 sm:pl-8 lg:border-l-0 lg:border-t lg:pl-0 lg:pt-8 lg:pr-5">
+                <span className="absolute -left-[0.45rem] top-2 grid size-4 place-items-center rounded-full border-4 border-white bg-brand-accent lg:-top-[0.45rem]">{""}</span>
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-accent-ink">Step 0{index+1}</p>
+                <h3 className="mt-3 font-display text-xl font-semibold text-brand-navy">{title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-brand-slate">{body}</p>
               </li>
             ))}
           </ol>
         </Container>
       </section>
 
-      <section className="border-y border-brand-border/75 bg-brand-background-wash/30 py-10 sm:py-12 lg:py-16">
-        <Container>
-          <ScrollReveal>
-            <SectionHeading
-              eyebrow="A clear working arrangement"
-              title="Know what happens at each step"
-              description="Before work begins, your practice and Practice Care Source can agree on scope, information access, review points, and how open questions are handed off."
-            />
-          </ScrollReveal>
-          <div className="mt-8 grid gap-5 md:grid-cols-3">
-            {[
-              { title: "Scope", description: "List the tasks included, what is outside the scope, and which systems or workflows they involve." },
-              { title: "Practice review", description: "Identify which details need your team's confirmation, approval, or decision before moving forward." },
-              { title: "Handoffs", description: "Agree how questions, updates, and next steps should be shared with the right practice contact." },
-            ].map((item, index) => (
-              <ScrollReveal key={item.title} delay={index * 0.05} className="h-full">
-                <article className="h-full rounded-2xl border border-brand-border bg-brand-background p-6 shadow-card transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-brand-accent/50 hover:shadow-card-hover motion-reduce:transition-none">
-                  <p className="text-sm font-extrabold uppercase tracking-[0.16em] text-brand-accent-ink">0{index + 1}</p>
-                  <h2 className="mt-3 font-display text-2xl font-semibold text-brand-dark">{item.title}</h2>
-                  <p className="mt-3 text-base leading-relaxed text-brand-slate">{item.description}</p>
-                </article>
-              </ScrollReveal>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="bg-brand-dark py-10 text-brand-background sm:py-12 lg:py-16">
-        <Container>
-          <ScrollReveal>
-            <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-              <div className="max-w-3xl">
-                <p className="mb-3 text-sm font-bold uppercase tracking-[0.16em] text-brand-accent">
-                  The source of care for your practice
-                </p>
-                <h2 className="text-balance font-display text-4xl font-semibold leading-[1.02] tracking-tight text-brand-background sm:text-5xl lg:text-6xl">
-                  Let's talk about the support your team needs.
-                </h2>
-                <p className="mt-5 max-w-2xl text-base leading-relaxed text-brand-background/75 sm:text-lg">
-                  Share what your practice would like to improve, and we can
-                  discuss a practical next step together.
-                </p>
-              </div>
-              <Button
-                href="/contact"
-                size="lg"
-                showArrow
-                className="shrink-0 self-start"
-              >
-                Request a Consultation
-              </Button>
-            </div>
-          </ScrollReveal>
+      <section className="bg-brand-background-wash/50 py-12 sm:py-16">
+        <Container className="flex flex-col gap-7 sm:flex-row sm:items-center sm:justify-between">
+          <div className="max-w-3xl"><p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-accent-ink">Let's talk</p><h2 className="mt-3 font-display text-3xl font-semibold text-brand-navy sm:text-4xl">Start with the work your practice wants to improve.</h2><p className="mt-3 text-base text-brand-slate">Share the context and discuss a practical next step.</p></div>
+          <Button href="/contact" size="lg" showArrow className="shrink-0 self-start">Request a consultation</Button>
         </Container>
       </section>
     </main>
   );
 }
-
