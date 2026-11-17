@@ -10,6 +10,7 @@ import { ArticleReadingProgress } from "@/components/resources/article-reading-p
 import { ArticleTools } from "@/components/resources/article-tools";
 import { ResourceCard, type ResourceCardData } from "@/components/resources/resource-card";
 import { ScrollReveal } from "@/components/scroll-reveal";
+import { WaveDivider } from "@/components/wave-divider";
 import { getReadingMinutes, getResourceArticle, resourceArticles, type ResourceArticle } from "@/data/resources/articles";
 
 type ArticlePageProps = {
@@ -180,29 +181,29 @@ export default async function ResourceArticlePage({ params }: ArticlePageProps) 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }}
       />
-      <section className="border-b border-brand-border/70 bg-brand-background-wash/25 py-8 sm:py-10 lg:py-12">
+      <section className="relative isolate overflow-hidden bg-brand-navy py-8 text-white sm:py-10 lg:py-12">
         <Container>
           <nav aria-label="Breadcrumb" className="mb-4">
-            <ol className="flex flex-wrap items-center gap-2 text-sm font-semibold text-brand-slate">
-              <li><Link href="/" className="rounded-sm hover:text-brand-accent-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-ink">Home</Link></li>
+            <ol className="flex flex-wrap items-center gap-2 text-sm font-semibold text-white/65">
+              <li><Link href="/" className="rounded-sm hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sky">Home</Link></li>
               <li aria-hidden="true">/</li>
-              <li><Link href="/resources" className="rounded-sm hover:text-brand-accent-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-ink">Resources</Link></li>
+              <li><Link href="/resources" className="rounded-sm hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sky">Resources</Link></li>
               <li aria-hidden="true">/</li>
-              <li aria-current="page" className="max-w-[14rem] truncate text-brand-dark sm:max-w-none">{article.category}</li>
+              <li aria-current="page" className="max-w-[14rem] truncate text-white sm:max-w-none">{article.category}</li>
             </ol>
           </nav>
           <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
             <ScrollReveal>
-              <p className="text-sm font-bold uppercase tracking-[0.16em] text-brand-accent-ink">{article.category}</p>
-              <h1 className="mt-3 text-balance font-display text-4xl font-semibold leading-[1.02] tracking-tight text-brand-dark sm:text-5xl lg:text-6xl">{article.title}</h1>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-brand-slate sm:text-lg">{article.description}</p>
+              <p className="text-sm font-bold uppercase tracking-[0.16em] text-brand-sky">{article.category}</p>
+              <h1 className="mt-3 text-balance font-display text-4xl font-semibold leading-[1.02] tracking-tight text-white sm:text-5xl lg:text-6xl">{article.title}</h1>
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/72 sm:text-lg">{article.description}</p>
               <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-semibold text-brand-slate">
                 {formatPublishedDate(article.publishedAt) ? <span className="inline-flex items-center gap-2"><CalendarDays size={16} aria-hidden="true" /><time dateTime={article.publishedAt}>{formatPublishedDate(article.publishedAt)}</time></span> : null}
                 <span className="inline-flex items-center gap-2"><Clock3 size={16} aria-hidden="true" />{getReadingMinutes(article)} min read</span>
               </div>
               <div className="mt-5"><ArticleTools title={article.title} /></div>
             </ScrollReveal>
-            <div className="relative aspect-[16/10] overflow-hidden rounded-3xl border border-brand-border bg-brand-background-wash shadow-card">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-t-[42%] rounded-b-3xl border border-white/15 bg-brand-dark-soft shadow-2xl shadow-black/25">
               <Image
                 src={article.coverImage}
                 alt={article.coverAlt}

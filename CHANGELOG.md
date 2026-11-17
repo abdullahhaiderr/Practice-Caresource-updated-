@@ -87,3 +87,5 @@
 - Rebuilt the homepage content sections with an editorial list, connected service imagery, a non-card process timeline, restored testimonials, and more varied section compositions.
 
 - Enabled the ZIP-supplied testimonial section through the central site feature flag after the owner's explicit approval.
+
+- Updated individual resource article heroes to use the same photographic, dark-and-wave visual treatment while keeping the reading experience clear and accessible.
