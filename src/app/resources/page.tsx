@@ -8,7 +8,6 @@ import { ScrollReveal } from "@/components/scroll-reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { WaveDivider } from "@/components/wave-divider";
 import { resourceArticles, resourceCategories, getReadingMinutes } from "@/data/resources/articles";
-import { serviceCatalog } from "@/data/services";
 import { getCanonicalUrl } from "@/lib/site";
 
 export const metadata: Metadata = {

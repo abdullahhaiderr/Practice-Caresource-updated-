@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Mail, MessageCircle, ShieldAlert } from "lucide-react";
+import { ArrowRight, Mail, MessageCircle, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/button";
 import { Container } from "@/components/container";
 import { PageHeroImage } from "@/components/page-hero-image";

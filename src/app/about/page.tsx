@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Check, ClipboardCheck, Eye, Handshake, Workflow } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, ClipboardCheck, Eye, Handshake } from "lucide-react";
 import { Button } from "@/components/button";
 import { Container } from "@/components/container";
 import { PageHeroImage } from "@/components/page-hero-image";
@@ -51,7 +52,7 @@ export default function AboutPage() {
         <Container className="grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
           <ScrollReveal className="relative">
             <div className="relative aspect-[4/5] max-h-[34rem] overflow-hidden rounded-t-[48%] rounded-b-[1.5rem] bg-brand-background-wash">
-              <PageHeroImage src={serviceCatalog[2].imageSrc} alt="Professional team working together"/>
+              <Image src={serviceCatalog[2].imageSrc} alt="Professional team working together in an office" fill sizes="(max-width: 1024px) 90vw, 40vw" className="object-cover"/>
             </div>
             <div className="absolute -bottom-5 -right-4 hidden max-w-[15rem] border border-brand-border bg-white p-5 shadow-card sm:block"><p className="font-display text-xl font-semibold text-brand-navy">Human communication.</p><p className="mt-1 text-sm text-brand-slate">Clear scope and agreed handoffs.</p></div>
           </ScrollReveal>
