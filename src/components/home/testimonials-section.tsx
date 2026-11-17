@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { Pause, Play, Quote, Star } from "lucide-react";
+import { Pause, Play, Quote } from "lucide-react";
 import { Container } from "@/components/container";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { SectionHeading } from "@/components/section-heading";
@@ -26,7 +26,7 @@ function ReviewTrack({ duplicate = false }: { duplicate?: boolean }) {
           <article className="flex h-[23rem] flex-col rounded-[1.4rem] border border-white/15 bg-white/[0.07] p-6 text-white shadow-[0_18px_50px_rgba(0,0,0,.18)] backdrop-blur-sm transition-[transform,border-color,background-color] duration-300 hover:-translate-y-1 hover:border-brand-sky/55 hover:bg-white/[0.11] sm:p-7">
             <div className="flex items-center justify-between">
               <span className="grid size-11 place-items-center rounded-xl bg-brand-sky/15 text-brand-sky"><Quote size={20} aria-hidden="true" /></span>
-              <span className="flex gap-1 text-brand-sky" aria-label="Testimonial"><Star size={13} fill="currentColor"/><Star size={13} fill="currentColor"/><Star size={13} fill="currentColor"/><Star size={13} fill="currentColor"/><Star size={13} fill="currentColor"/></span>
+              <span className="text-xs font-bold uppercase tracking-[0.14em] text-white/45">Client perspective</span>
             </div>
             <blockquote className="mt-7 flex-1 text-[0.98rem] leading-[1.8] text-white/85">“{item.quote}”</blockquote>
             <div className="mt-6 flex items-center gap-3 border-t border-white/15 pt-5">
