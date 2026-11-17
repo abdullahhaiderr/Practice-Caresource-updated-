@@ -1,16 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import Script from "next/script";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, CheckCircle2, LoaderCircle, Send } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/button";
 import {
-  contactFormCompactSchema,
-  contactFormSimpleSchema,
-  contactFormWithConsentSchema,
+  contactFormSchema,
   serviceOptions,
-  specialtyOptions,
   type ContactFormValues,
 } from "@/lib/contact-schema";
 
@@ -19,13 +17,31 @@ type SubmitStatus =
   | { type: "error"; message: string }
   | null;
 
+type TurnstileRenderOptions = {
+  sitekey: string;
+  callback: (token: string) => void;
+  "expired-callback"?: () => void;
+  "error-callback"?: () => void;
+  theme?: "light" | "dark" | "auto";
+};
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (container: HTMLElement, options: TurnstileRenderOptions) => string;
+      remove: (widgetId: string) => void;
+      reset: (widgetId: string) => void;
+    };
+  }
+}
+
+const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 const fieldClass =
   "mt-2 min-h-12 w-full rounded-xl border border-brand-border bg-brand-background px-4 py-3 text-brand-dark placeholder:text-brand-slate/65 transition-colors focus:border-brand-accent-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent/25";
 const labelClass = "block text-sm font-bold text-brand-dark";
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
-
   return (
     <p id={id} className="mt-2 text-sm font-semibold text-brand-accent-ink">
       {message}
@@ -33,20 +49,23 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   );
 }
 
-export function ContactForm({ compact = false, simple = false }: { compact?: boolean; simple?: boolean }) {
+export function ContactForm() {
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>(null);
+  const [captchaReady, setCaptchaReady] = useState(false);
+  const [captchaError, setCaptchaError] = useState("");
+  const captchaContainerRef = useRef<HTMLDivElement>(null);
+  const captchaWidgetRef = useRef<string | null>(null);
+
   const {
     register,
     handleSubmit,
     reset,
     setError,
+    setValue,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<ContactFormValues>({
-    resolver: simple
-      ? (zodResolver(contactFormSimpleSchema) as never)
-      : compact
-        ? zodResolver(contactFormCompactSchema)
-        : zodResolver(contactFormWithConsentSchema),
+    resolver: zodResolver(contactFormSchema),
     mode: "onBlur",
     defaultValues: {
       fullName: "",
@@ -58,8 +77,50 @@ export function ContactForm({ compact = false, simple = false }: { compact?: boo
       message: "",
       consent: false,
       website: "",
+      turnstileToken: "",
     },
   });
+
+  const updateCaptchaToken = useCallback(
+    (token: string) => {
+      setValue("turnstileToken", token, {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
+      if (token) setCaptchaError("");
+    },
+    [setValue],
+  );
+
+  useEffect(() => {
+    if (!turnstileSiteKey || !captchaReady || !captchaContainerRef.current) return;
+    if (!window.turnstile || captchaWidgetRef.current) return;
+
+    try {
+      captchaWidgetRef.current = window.turnstile.render(captchaContainerRef.current, {
+        sitekey: turnstileSiteKey,
+        theme: "light",
+        callback: updateCaptchaToken,
+        "expired-callback": () => {
+          updateCaptchaToken("");
+          setCaptchaError("The security check expired. Please complete it again.");
+        },
+        "error-callback": () => {
+          updateCaptchaToken("");
+          setCaptchaError("The security check could not be completed. Refresh the page and try again.");
+        },
+      });
+    } catch {
+      setCaptchaError("The security check could not be loaded. Refresh the page and try again.");
+    }
+
+    return () => {
+      if (captchaWidgetRef.current && window.turnstile) {
+        window.turnstile.remove(captchaWidgetRef.current);
+        captchaWidgetRef.current = null;
+      }
+    };
+  }, [captchaReady, updateCaptchaToken]);
 
   async function onSubmit(values: ContactFormValues) {
     setSubmitStatus(null);
@@ -84,12 +145,11 @@ export function ContactForm({ compact = false, simple = false }: { compact?: boo
             });
           }
         }
-
         setSubmitStatus({
           type: "error",
           message:
             result.message ??
-            "We couldn't send your message right now. Please try again or email us directly.",
+            "We couldn't send your request. Please review the form and try again.",
         });
         return;
       }
@@ -98,23 +158,30 @@ export function ContactForm({ compact = false, simple = false }: { compact?: boo
         type: "success",
         message:
           result.message ??
-          "Thanks for reaching out. Your message has been sent to Practice Care Source.",
+          "Your request has been sent to Practice Care Source.",
       });
       reset();
+
+      if (captchaWidgetRef.current && window.turnstile) {
+        window.turnstile.reset(captchaWidgetRef.current);
+      }
     } catch {
       setSubmitStatus({
         type: "error",
         message:
-          "We couldn't send your message right now. Please check your connection or email us directly.",
+          "We couldn't send your request right now. Please check your connection or email us directly.",
       });
     }
   }
+
+  const captchaRequired = Boolean(turnstileSiteKey);
+  const turnstileToken = watch("turnstileToken");
 
   return (
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className={compact ? "space-y-4" : "space-y-6"}
+      className="space-y-6"
     >
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
@@ -132,10 +199,9 @@ export function ContactForm({ compact = false, simple = false }: { compact?: boo
           <FieldError id="fullName-error" message={errors.fullName?.message} />
         </div>
 
-        {!simple ? (
         <div>
           <label className={labelClass} htmlFor="practiceName">
-            Practice name <span aria-hidden="true">*</span>
+            Practice or organization <span aria-hidden="true">*</span>
           </label>
           <input
             id="practiceName"
@@ -150,7 +216,6 @@ export function ContactForm({ compact = false, simple = false }: { compact?: boo
             message={errors.practiceName?.message}
           />
         </div>
-        ) : null}
 
         <div>
           <label className={labelClass} htmlFor="email">
@@ -184,26 +249,23 @@ export function ContactForm({ compact = false, simple = false }: { compact?: boo
           <FieldError id="phone-error" message={errors.phone?.message} />
         </div>
 
-        {!simple ? (
-        <>
         <div>
           <label className={labelClass} htmlFor="specialty">
-            Specialty <span aria-hidden="true">*</span>
+            Practice specialty <span aria-hidden="true">*</span>
           </label>
-          <select
+          <input
             id="specialty"
+            type="text"
+            autoComplete="off"
+            placeholder="Enter your practice specialty"
             className={fieldClass}
             aria-invalid={Boolean(errors.specialty)}
-            aria-describedby={errors.specialty ? "specialty-error" : undefined}
+            aria-describedby={errors.specialty ? "specialty-error" : "specialty-hint"}
             {...register("specialty")}
-          >
-            <option value="">Choose your specialty</option>
-            {specialtyOptions.map((specialty) => (
-              <option key={specialty} value={specialty}>
-                {specialty}
-              </option>
-            ))}
-          </select>
+          />
+          <p id="specialty-hint" className="mt-2 text-xs leading-relaxed text-brand-slate">
+            This helps us understand the type of workflow you want to discuss. It is not a list of confirmed service specialties.
+          </p>
           <FieldError id="specialty-error" message={errors.specialty?.message} />
         </div>
 
@@ -215,16 +277,12 @@ export function ContactForm({ compact = false, simple = false }: { compact?: boo
             id="serviceInterestedIn"
             className={fieldClass}
             aria-invalid={Boolean(errors.serviceInterestedIn)}
-            aria-describedby={
-              errors.serviceInterestedIn ? "serviceInterestedIn-error" : undefined
-            }
+            aria-describedby={errors.serviceInterestedIn ? "serviceInterestedIn-error" : undefined}
             {...register("serviceInterestedIn")}
           >
             <option value="">Choose a service</option>
             {serviceOptions.map((service) => (
-              <option key={service} value={service}>
-                {service}
-              </option>
+              <option key={service} value={service}>{service}</option>
             ))}
           </select>
           <FieldError
@@ -232,63 +290,63 @@ export function ContactForm({ compact = false, simple = false }: { compact?: boo
             message={errors.serviceInterestedIn?.message}
           />
         </div>
-        </>
-        ) : null}
       </div>
 
       <div>
         <label className={labelClass} htmlFor="message">
-          {compact ? "Message" : "How can we support your practice?"} <span aria-hidden="true">*</span>
+          How can we support your practice? <span aria-hidden="true">*</span>
         </label>
-        {compact ? (
-          <input
-            id="message"
-            type="text"
-            maxLength={2000}
-            placeholder="Tell us how we can help."
-            className={fieldClass}
-            aria-invalid={Boolean(errors.message)}
-            aria-describedby={errors.message ? "message-error" : undefined}
-            {...register("message")}
-          />
-        ) : (
-          <textarea
-            id="message"
-            rows={5}
-            maxLength={2000}
-            placeholder="Tell us about your practice goals or the support you are exploring."
-            className={`${fieldClass} min-h-36 resize-y`}
-            aria-invalid={Boolean(errors.message)}
-            aria-describedby={errors.message ? "message-error" : "message-hint"}
-            {...register("message")}
-          />
-        )}
-        {!compact ? (
-          <p id="message-hint" className="mt-2 text-sm leading-relaxed text-brand-slate">
-            This form is for general business inquiries only. Do not submit patient names, protected health information (PHI), or sensitive patient data.
-          </p>
-        ) : null}
+        <textarea
+          id="message"
+          rows={5}
+          maxLength={2000}
+          placeholder="Share your general business goals or the workflow you would like to discuss."
+          className={`${fieldClass} min-h-36 resize-y`}
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby={errors.message ? "message-error message-hint" : "message-hint"}
+          {...register("message")}
+        />
+        <p id="message-hint" className="mt-2 text-sm leading-relaxed text-brand-slate">
+          Business inquiries only. Do not submit patient names, dates of birth, medical record details, insurance identifiers, protected health information (PHI), or other sensitive patient data.
+        </p>
         <FieldError id="message-error" message={errors.message?.message} />
       </div>
 
-      {!compact && !simple ? (
-        <div className="flex items-start gap-3">
-          <input
-            id="consent"
-            type="checkbox"
-            className="mt-1 size-5 shrink-0 rounded border-brand-border accent-brand-accent-ink focus-visible:ring-2 focus-visible:ring-brand-accent-ink"
-            aria-invalid={Boolean(errors.consent)}
-            aria-describedby={errors.consent ? "consent-error" : undefined}
-            {...register("consent")}
+      {captchaRequired ? (
+        <div className="rounded-2xl border border-brand-border bg-brand-background-wash/45 p-4">
+          <Script
+            src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+            strategy="afterInteractive"
+            onReady={() => setCaptchaReady(true)}
+            onError={() => setCaptchaError("The security check could not be loaded. Refresh the page and try again.")}
           />
-          <div>
-            <label htmlFor="consent" className="text-sm leading-relaxed text-brand-dark">
-              I agree that Practice Care Source may contact me about this request. <span aria-hidden="true">*</span>
-            </label>
-            <FieldError id="consent-error" message={errors.consent?.message} />
-          </div>
+          <p className="mb-3 text-sm font-semibold text-brand-dark">Complete the security check before sending.</p>
+          <div ref={captchaContainerRef} />
+          {captchaError ? (
+            <p role="alert" className="mt-2 text-sm font-semibold text-brand-accent-ink">{captchaError}</p>
+          ) : null}
+          <input type="hidden" {...register("turnstileToken")} />
         </div>
-      ) : null}
+      ) : (
+        <input type="hidden" {...register("turnstileToken")} />
+      )}
+
+      <div className="flex items-start gap-3">
+        <input
+          id="consent"
+          type="checkbox"
+          className="mt-1 size-5 shrink-0 rounded border-brand-border accent-brand-accent-ink focus-visible:ring-2 focus-visible:ring-brand-accent-ink"
+          aria-invalid={Boolean(errors.consent)}
+          aria-describedby={errors.consent ? "consent-error" : undefined}
+          {...register("consent")}
+        />
+        <div>
+          <label htmlFor="consent" className="text-sm leading-relaxed text-brand-dark">
+            I agree that Practice Care Source may contact me about this business inquiry. <span aria-hidden="true">*</span>
+          </label>
+          <FieldError id="consent-error" message={errors.consent?.message} />
+        </div>
+      </div>
 
       <div className="sr-only" aria-hidden="true">
         <label htmlFor="website">Leave this field empty</label>
@@ -308,33 +366,23 @@ export function ContactForm({ compact = false, simple = false }: { compact?: boo
           className="flex items-start gap-3 rounded-2xl border border-brand-border bg-brand-background-wash/45 p-4 text-sm leading-relaxed text-brand-dark"
         >
           {submitStatus.type === "success" ? (
-            <CheckCircle2
-              size={20}
-              className="mt-0.5 shrink-0 text-brand-accent-ink"
-              aria-hidden="true"
-            />
+            <CheckCircle2 size={20} className="mt-0.5 shrink-0 text-brand-accent-ink" aria-hidden="true" />
           ) : (
-            <AlertCircle
-              size={20}
-              className="mt-0.5 shrink-0 text-brand-accent-ink"
-              aria-hidden="true"
-            />
+            <AlertCircle size={20} className="mt-0.5 shrink-0 text-brand-accent-ink" aria-hidden="true" />
           )}
           <p>{submitStatus.message}</p>
         </div>
       ) : null}
 
-      <div className={compact || simple ? "" : "flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"}>
-        {!compact && !simple ? (
-          <p className="text-xs leading-relaxed text-brand-slate">
-            Fields marked * are required. Your message is sent to Practice Care Source by email.
-          </p>
-        ) : null}
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-xs leading-relaxed text-brand-slate">
+          Required fields are marked *. Email receipts are sent when the email provider accepts the request.
+        </p>
         <Button
           type="submit"
           size="lg"
-          disabled={isSubmitting}
-          className={compact ? "w-full" : "w-full shrink-0 sm:w-auto"}
+          disabled={isSubmitting || (captchaRequired && !turnstileToken)}
+          className="w-full shrink-0 sm:w-auto"
         >
           {isSubmitting ? (
             <>
@@ -343,7 +391,7 @@ export function ContactForm({ compact = false, simple = false }: { compact?: boo
             </>
           ) : (
             <span className="inline-flex items-center gap-2 whitespace-nowrap">
-              Send message
+              Send inquiry
               <Send size={17} aria-hidden="true" />
             </span>
           )}

@@ -124,7 +124,16 @@ export default function ContactPage() {
               <h2 className="mb-6 font-display text-3xl font-semibold leading-tight text-brand-dark sm:text-4xl">
                 Send us a message
               </h2>
-              <ContactForm simple />
+              <ContactForm />
+              <div className="mt-5 border-t border-brand-border pt-5">
+                <p className="text-sm leading-relaxed text-brand-slate">
+                  This form is for general business inquiries only. Do not submit patient names, medical record details, insurance identifiers, protected health information (PHI), or other sensitive patient data.
+                </p>
+                <Link href="/security" className="mt-3 inline-flex min-h-10 items-center gap-2 text-sm font-bold text-brand-accent-ink underline decoration-brand-accent/40 underline-offset-4 hover:decoration-brand-accent">
+                  Read our information and access guidance
+                  <ArrowRight size={15} aria-hidden="true" />
+                </Link>
+              </div>
             </div>
           </ScrollReveal>
         </Container>

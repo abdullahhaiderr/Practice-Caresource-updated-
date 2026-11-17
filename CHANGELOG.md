@@ -23,3 +23,13 @@
 - Removed unsupported US service-area wording from the Services overview and About page.
 - Added the Security page to footer quick links.
 - Documented canonical-domain, specialty-list, certification, and build-validation limitations.
+
+## Version 4: contact form and email workflows
+- Replaced the shortened inquiry form with the full business inquiry form and required contact consent.
+- Changed specialty to free text and aligned service choices with the existing service catalog.
+- Added server-side validation, request-size limits, same-origin checks, a honeypot, and a best-effort per-instance rate limit.
+- Added optional Cloudflare Turnstile verification that becomes mandatory when its public and secret keys are configured; an incomplete key pair fails closed.
+- Added a separate customer receipt email after the inquiry notification is accepted by Resend.
+- Added specific success messaging when the notification succeeds but the receipt email is not accepted.
+- Added setup and testing guidance without adding real credentials or claiming a live email test.
+- Kept the form limited to general business inquiries and repeated the no-PHI warning.
