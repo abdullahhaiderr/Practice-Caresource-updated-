@@ -32,9 +32,9 @@
 ## Checks
 | Check | Result | Detail |
 |---|---|---|
-| Source lint | Passed | Lightweight parser and placeholder check; not ESLint. |
-| TypeScript syntax parse | Passed | 34 TypeScript and TSX files parsed without syntax diagnostics. |
-| JSON/config parse | Passed | package.json and .21st/design.json parsed successfully. |
+| Source lint on exact published commit | Not run | The helper script is present in the repository, but the exact GitHub tree was not executed in this environment. |
+| TypeScript syntax parse on exact published commit | Not run | The earlier workspace parse related to a different local iteration and is not counted as validation of this published commit. |
+| JSON/config parse | Not run on exact published commit | Configuration files were reviewed, but a separate final-tree parser run was not completed. |
 | npm ci | Blocked | Installation timed out in this environment. |
 | npm run typecheck | Blocked | Missing @types/node, @types/react, and @types/react-dom due incomplete install. |
 | npm run build | Blocked | Next.js CLI was unavailable because dependencies were not installed. |
@@ -42,4 +42,4 @@
 | Accessibility/Lighthouse | Not run | No accessibility or Lighthouse run was available. |
 | Live email test | Not run | Requires a Resend API key and verified sender. |
 
-No build, deployment, live email, browser, accessibility, or Lighthouse success is claimed.
+The implementation was reviewed against the requested Version 2 scope, but the exact published source tree has not been validated by an executed lint, TypeScript parse, or production build in this environment. No build, deployment, live email, browser, accessibility, or Lighthouse success is claimed.
