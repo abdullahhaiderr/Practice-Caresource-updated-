@@ -33,3 +33,12 @@
 - Added specific success messaging when the notification succeeds but the receipt email is not accepted.
 - Added setup and testing guidance without adding real credentials or claiming a live email test.
 - Kept the form limited to general business inquiries and repeated the no-PHI warning.
+
+## Version 5: resources, privacy preferences, legal drafts, and error states
+- Removed unpublished date placeholders from resource cards and article headers; actual dates appear only when a valid ISO date is supplied.
+- Added a general-information notice to resource article pages and retained the existing search, topic filters, and no-results state.
+- Added draft Privacy Policy and Terms of Use pages with noindex metadata until business and legal approval.
+- Added a browser-local privacy preference control for future optional analytics choices; it does not set a cookie, load analytics, or activate tracking.
+- Added footer links to the legal drafts and branded favicon, app icon, Apple touch icon, and web manifest.
+- Added custom not-found, route error, and global error handling pages.
+- Documented legal, privacy, hosting/vendor, retention, analytics, and testing confirmations that remain outstanding.

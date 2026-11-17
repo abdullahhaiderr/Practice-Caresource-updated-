@@ -18,7 +18,32 @@ type ResourceCardProps = {
   featured?: boolean;
 };
 
+function formatPublishedDate(value: string) {
+  if (
+    value.length !== 10 ||
+    value[4] !== "-" ||
+    value[7] !== "-"
+  ) return null;
+
+  const [year, month, day] = value.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  if (
+    !Number.isFinite(date.getTime()) ||
+    date.getUTCFullYear() !== year ||
+    date.getUTCMonth() !== month - 1 ||
+    date.getUTCDate() !== day
+  ) return null;
+
+  return new Intl.DateTimeFormat("en", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(date);
+}
+
 export function ResourceCard({ article, featured = false }: ResourceCardProps) {
+  const publishedDate = formatPublishedDate(article.publishedAt);
   if (featured) {
     return (
       <article className="group overflow-hidden rounded-3xl border border-brand-border bg-brand-dark text-brand-background shadow-card transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-card-hover">
@@ -42,7 +67,7 @@ export function ResourceCard({ article, featured = false }: ResourceCardProps) {
           <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-bold text-brand-background/65">
               <span className="text-brand-accent">{article.category}</span>
-              <span>{article.publishedAt}</span>
+              {publishedDate ? <time dateTime={article.publishedAt}>{publishedDate}</time> : null}
               <span className="inline-flex items-center gap-1.5"><Clock3 size={14} aria-hidden="true" />{article.readingMinutes} min read</span>
             </div>
             <h3 className="mt-5 max-w-2xl font-display text-3xl font-semibold leading-[1.05] text-brand-background sm:text-4xl lg:text-5xl">
@@ -79,8 +104,7 @@ export function ResourceCard({ article, featured = false }: ResourceCardProps) {
         <div className="flex flex-1 flex-col p-5 sm:p-6">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-bold text-brand-slate">
             <span className="text-brand-accent-ink">{article.category}</span>
-            <span aria-hidden="true">·</span>
-            <span>{article.publishedAt}</span>
+            {publishedDate ? <><span aria-hidden="true">·</span><time dateTime={article.publishedAt}>{publishedDate}</time></> : null}
           </div>
           <h3 className="mt-4 font-display text-2xl font-semibold leading-tight text-brand-dark sm:text-3xl">
             {article.title}

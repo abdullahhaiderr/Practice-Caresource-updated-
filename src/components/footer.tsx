@@ -35,7 +35,11 @@ export function Footer() {
           </div>
           <div className="flex flex-col gap-3 pt-6 text-xs leading-relaxed text-slate-400 sm:flex-row sm:items-center sm:justify-between">
             <p>© {new Date().getFullYear()} Practice Care Source. All rights reserved.</p>
-            <p>Website inquiries are for business purposes only. Do not submit patient information.</p>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+              <Link href="/privacy-policy" className="underline decoration-white/35 underline-offset-4 hover:text-white">Privacy policy</Link>
+              <Link href="/terms-of-use" className="underline decoration-white/35 underline-offset-4 hover:text-white">Terms of use</Link>
+              <span>Website inquiries are for business purposes only. Do not submit patient information.</span>
+            </div>
           </div>
         </Container>
       </footer>

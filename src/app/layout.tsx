@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/footer";
+import { PrivacyPreferences } from "@/components/privacy-preferences";
 import { Navbar } from "@/components/navbar";
 import { siteConfig } from "@/lib/site";
 import { organizationStructuredData, serializeJsonLd } from "@/lib/structured-data";
@@ -27,6 +28,12 @@ export const metadata: Metadata = {
   },
   description: "Medical billing and practice support for healthcare practices. Contact us to discuss your team's business needs and workflows.",
   applicationName: siteConfig.brandName,
+  manifest: "/site.webmanifest",
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -54,6 +61,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </a>
         <Navbar />
         {children}
+        <PrivacyPreferences />
         <Footer />
       </body>
     </html>

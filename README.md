@@ -52,6 +52,16 @@ Keep secrets in deployment settings or a local .env.local file. Never commit rea
 
 To test delivery, configure a Resend API key and a verified CONTACT_FROM_EMAIL sender, then submit a real business test inquiry. Check both the notification and receipt in the relevant mailboxes and Resend logs. No live delivery result is claimed by this repository change alone.
 
+## Privacy and legal content
+
+- /privacy-policy and /terms-of-use are preliminary drafts. Both pages are marked for business/legal review and carry noindex metadata until approved.
+- The drafts deliberately avoid inventing the legal operator, registered address, jurisdiction, data-retention periods, or vendor-processing locations. Those details must be confirmed before publication.
+- The privacy-preferences control stores a choice in browser local storage. It does not set a consent cookie and does not load analytics.
+- Optional analytics remain disabled in the current site configuration. Saving permission for possible future analytics does not activate tracking; a future analytics integration must read the stored preference before loading.
+- The privacy policy describes the current code paths for the contact form, Resend workflow, optional Turnstile configuration, and browser preference storage. Confirm actual hosting/vendor contracts and settings before approval.
+
+Do not treat draft legal wording as legal advice or as evidence of compliance with a particular privacy law. Obtain jurisdiction-specific review before removing the draft notice or enabling indexing.
+
 ## Main routes
 
 - /
@@ -60,8 +70,12 @@ To test delivery, configure a Resend API key and a verified CONTACT_FROM_EMAIL s
 - /services and /services/[slug]
 - /resources and /resources/[slug]
 - /security
+- /privacy-policy (draft; noindex)
+- /terms-of-use (draft; noindex)
 - /api/contact (POST)
 - /api/testimonial (POST)
+
+The site also includes branded not-found and route/global error states.
 
 ## Editing content
 
@@ -70,7 +84,8 @@ To test delivery, configure a Resend API key and a verified CONTACT_FROM_EMAIL s
 - Brand, navigation, contact details and feature flags: src/lib/site.ts
 - Structured data helpers: src/lib/structured-data.ts
 - Theme tokens: src/app/globals.css and tailwind.config.ts
-- Public assets: public/
+- Public icons and manifest: public/favicon.svg, public/icon.svg, public/site.webmanifest, public/apple-touch-icon.png
+- Privacy preferences: src/components/privacy-preferences.tsx
 
 Do not publish unverified contact details, business hours, testimonials, statistics, certifications, or service claims.
 
@@ -80,4 +95,4 @@ Do not publish unverified contact details, business hours, testimonials, statist
     npm run typecheck
     npm run build
 
-See docs/version-1-audit.md and docs/version-2-checkpoint.md through docs/version-4-checkpoint.md, along with docs/TODO.md, for audit findings, completed milestones, and unresolved confirmations.
+See docs/version-1-audit.md and docs/version-2-checkpoint.md through docs/version-5-checkpoint.md, along with docs/TODO.md, for audit findings, completed milestones, and unresolved confirmations.

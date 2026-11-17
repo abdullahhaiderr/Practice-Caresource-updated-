@@ -21,7 +21,23 @@ export function generateStaticParams() {
 export const dynamicParams = false;
 
 function isIsoDate(value: string) {
-  return /^\d{4}-\d{2}-\d{2}$/.test(value);
+  if (value.length !== 10 || value[4] !== "-" || value[7] !== "-") return false;
+  const [year, month, day] = value.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return Number.isFinite(date.getTime()) &&
+    date.getUTCFullYear() === year &&
+    date.getUTCMonth() === month - 1 &&
+    date.getUTCDate() === day;
+}
+
+function formatPublishedDate(value: string) {
+  if (!isIsoDate(value)) return null;
+  return new Intl.DateTimeFormat("en", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(value + "T00:00:00Z"));
 }
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
@@ -177,7 +193,7 @@ export default async function ResourceArticlePage({ params }: ArticlePageProps) 
               <h1 className="mt-3 text-balance font-display text-4xl font-semibold leading-[1.02] tracking-tight text-brand-dark sm:text-5xl lg:text-6xl">{article.title}</h1>
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-brand-slate sm:text-lg">{article.description}</p>
               <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-semibold text-brand-slate">
-                <span className="inline-flex items-center gap-2"><CalendarDays size={16} aria-hidden="true" />{article.publishedAt}</span>
+                {formatPublishedDate(article.publishedAt) ? <span className="inline-flex items-center gap-2"><CalendarDays size={16} aria-hidden="true" /><time dateTime={article.publishedAt}>{formatPublishedDate(article.publishedAt)}</time></span> : null}
                 <span className="inline-flex items-center gap-2"><Clock3 size={16} aria-hidden="true" />{getReadingMinutes(article)} min read</span>
               </div>
             </ScrollReveal>
@@ -201,6 +217,10 @@ export default async function ResourceArticlePage({ params }: ArticlePageProps) 
         <Container className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-16">
           <article>
             <p className="mb-8 max-w-[70ch] text-lg leading-[1.8] text-brand-dark sm:text-xl">{article.introduction}</p>
+            <aside className="mb-9 max-w-[70ch] rounded-2xl border border-brand-border bg-brand-background-wash/40 p-5 text-sm leading-relaxed text-brand-slate" aria-label="General information notice">
+              <strong className="block text-brand-dark">General information only</strong>
+              <span className="mt-1 block">This resource is educational background, not medical, legal, coding, reimbursement, or payer-specific advice. Requirements can vary and change. Confirm current guidance with the relevant payer, authority, and qualified advisers before acting.</span>
+            </aside>
             <ArticleContent article={article} />
           </article>
           <aside className="self-start lg:sticky lg:top-28">

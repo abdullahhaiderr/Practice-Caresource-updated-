@@ -11,10 +11,14 @@
 - Verify numerical claims and coverage statements before publishing statistics.
 - Confirm whether a free consultation is actually offered before using “free” in public CTA copy.
 
-## Security and privacy confirmation
+## Security, privacy, and legal confirmation
 - Obtain the current approved security overview, safeguards, incident contact, and access-management details before publishing specific controls.
 - Confirm whether a Business Associate Agreement or other written agreement is required for each prospective engagement; do not imply one is already in place.
 - Confirm any certifications or compliance attestations before making public claims. The /security page currently makes no certification or compliance claim.
+- Confirm the legal operator's full legal name, registered address, and contact details for the privacy and terms pages.
+- Obtain jurisdiction-specific legal review of /privacy-policy and /terms-of-use. Both pages are drafts and use noindex metadata until approval.
+- Confirm applicable privacy/consumer laws, data-controller or responsible-party details, user request procedures, retention/deletion schedules, and any required complaint or regulator information.
+- Confirm the actual hosting, email, CAPTCHA, and other vendors, their data-processing terms, and any cross-border processing before finalizing the privacy notice.
 - Keep website contact requests limited to general business inquiries. Do not collect patient names or PHI.
 
 ## Integrations
@@ -25,10 +29,10 @@
 - Configure a provider-level WAF or shared rate-limit store for distributed production rate limiting; the in-memory contact limit is per process only.
 - Submit a real test request after email and Turnstile configuration; verify both admin notification and customer receipt delivery in Resend and the mailboxes.
 - Confirm how support should handle a form submission that appears to contain sensitive patient data.
+- Keep optional analytics disabled. If analytics are ever added, implement a consent gate that reads the saved browser preference before loading any analytics code.
 
 ## Remaining redesign work
-- Version 5: resources enhancements, reviewed legal drafts, consent preferences, app icons, and error states.
-- Version 6: SEO, analytics after consent, security, responsive, accessibility, performance, and release checks.
+- Version 6: SEO, analytics consent enforcement if analytics are approved, security, responsive, accessibility, performance, and release checks.
 
 ## Test limitations
 - Run npm ci before full TypeScript and Next.js build checks.
@@ -36,3 +40,4 @@
 - Test the requested viewport widths and available browsers.
 - Run an accessibility audit and Lighthouse on representative pages.
 - Verify email delivery only after real Resend credentials and a verified sender are configured.
+- Review and approve legal drafts before setting their robots metadata to indexable.
