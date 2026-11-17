@@ -81,3 +81,5 @@
 
 - Added the slow testimonial marquee motion with pause-on-hover/focus and a manual pause control; reduced-motion users retain a manually scrollable row.
 - Added the same gently animated wave transition above the existing footer without changing its layout or content.
+
+- Reworked the Privacy Policy and Terms of Use presentation into an accessible editorial reading layout with section navigation; retained their draft notice and existing `noindex` metadata.
