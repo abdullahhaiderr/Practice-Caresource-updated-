@@ -1,24 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/footer";
 import { PrivacyPreferences } from "@/components/privacy-preferences";
 import { Navbar } from "@/components/navbar";
 import { siteConfig } from "@/lib/site";
 import { organizationStructuredData, serializeJsonLd } from "@/lib/structured-data";
-
-const displayFont = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["500", "600", "700", "800"],
-  display: "swap",
-});
-const bodyFont = Inter({
-  subsets: ["latin"],
-  variable: "--font-body",
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: siteConfig.canonicalUrl ? new URL(siteConfig.canonicalUrl) : undefined,
@@ -52,7 +38,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={[displayFont.variable, bodyFont.variable].join(" ")}>
+      <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(organizationStructuredData()) }} />
         <a
           href="#main-content"

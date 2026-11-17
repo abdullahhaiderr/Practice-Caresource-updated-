@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 :root {
+  --font-body: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Avenir Next", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
   color-scheme: light;
   --cs-navy: 11 27 63;
   --cs-accent: 47 91 255;

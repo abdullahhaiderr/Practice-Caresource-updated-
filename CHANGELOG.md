@@ -89,3 +89,5 @@
 - Enabled the ZIP-supplied testimonial section through the central site feature flag after the owner's explicit approval.
 
 - Updated individual resource article heroes to use the same photographic, dark-and-wave visual treatment while keeping the reading experience clear and accessible.
+
+- Removed build-time Google Font downloads and switched to polished system font stacks so production builds do not depend on an external font fetch; the display/body font roles remain separately configurable through CSS variables.
