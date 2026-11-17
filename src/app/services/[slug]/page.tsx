@@ -68,7 +68,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             <nav aria-label="Breadcrumb" className="mb-4">
               <ol className="flex flex-wrap items-center gap-2 text-sm font-semibold text-white/60">
                 <li>
-                  <Link href="/" className="rounded-sm transition-colors hover:text-brand-accent-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-ink">Home</Link>
+                  <Link href="/" className="rounded-sm transition-colors hover:text-brand-sky focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sky">Home</Link>
                 </li>
                 <li aria-hidden="true"><ChevronRight size={15} /></li>
                 <li>
@@ -78,7 +78,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 <li aria-current="page" className="text-white">{service.shortTitle}</li>
               </ol>
             </nav>
-            <p className="mb-3 text-sm font-bold uppercase tracking-[0.16em] text-brand-accent-ink">
+            <p className="mb-3 text-sm font-bold uppercase tracking-[0.16em] text-brand-sky">
               Practice Care Source practice support
             </p>
             <h1 className="text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight text-white sm:text-6xl lg:text-7xl">

@@ -30,7 +30,7 @@ export default function ServicesPage() {
             <nav aria-label="Breadcrumb" className="mb-4">
               <ol className="flex items-center gap-2 text-sm font-semibold text-white/60">
                 <li>
-                  <Link href="/" className="rounded-sm transition-colors hover:text-brand-accent-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-ink">
+                  <Link href="/" className="rounded-sm transition-colors hover:text-brand-sky focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sky">
                     Home
                   </Link>
                 </li>
@@ -38,7 +38,7 @@ export default function ServicesPage() {
                 <li aria-current="page" className="text-white">Services</li>
               </ol>
             </nav>
-            <p className="mb-3 text-sm font-bold uppercase tracking-[0.16em] text-brand-accent-ink">
+            <p className="mb-3 text-sm font-bold uppercase tracking-[0.16em] text-brand-sky">
               Practice support, connected
             </p>
             <h1 className="text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight text-white sm:text-6xl lg:text-7xl">
