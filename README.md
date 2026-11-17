@@ -41,13 +41,15 @@ Keep secrets in deployment settings or a local .env.local file. Never commit rea
 
 ## Contact form behavior
 
-- The form collects a business contact, practice/organization, free-text specialty, service of interest, message, and required contact consent.
+- The form uses a two-step flow: essential contact details first, then service interest, optional free-text specialty, general message, and required contact consent.
+- Phone and specialty are optional to keep the first enquiry low friction.
 - Specialty is free text because a confirmed specialty directory has not been supplied.
 - The API validates the full form on the server, enforces a request body limit and same-origin checks when an Origin header is present, and uses a hidden honeypot.
 - The API rejects several obvious identifier formats (for example, SSN-formatted values, labelled MRN/member IDs, and explicitly labelled dates of birth). This is only a limited safeguard; it cannot identify every form of patient information.
 - A best-effort in-memory limit allows up to five requests per client key within ten minutes per running server instance. Serverless instances do not share this memory; use a provider-level WAF or a shared rate-limit store for a distributed production limit.
 - When Turnstile is configured, a valid server-verified token is required.
 - Resend sends an inquiry notification to CONTACT_TO_EMAIL and attempts a separate receipt email to the sender. The success response distinguishes whether the receipt email was accepted by Resend.
+- The Resources index searches article titles, summaries, topics, and article body text. Article detail pages provide reading progress, a contents list, related resources, share/copy and print controls.
 - The inquiry form is for general business information only. Do not submit patient names, dates of birth, medical record details, insurance identifiers, protected health information (PHI), or other sensitive patient data.
 
 To test delivery, configure a Resend API key and a verified CONTACT_FROM_EMAIL sender, then submit a real business test inquiry. Check both the notification and receipt in the relevant mailboxes and Resend logs. No live delivery result is claimed by this repository change alone.
@@ -105,4 +107,4 @@ Do not publish unverified contact details, business hours, testimonials, statist
     npm run typecheck
     npm run build
 
-See docs/version-1-audit.md and docs/version-2-checkpoint.md through docs/version-5-checkpoint.md, along with docs/TODO.md and docs/vercel-deployment-troubleshooting.md, for audit findings, completed milestones, deployment notes, and unresolved confirmations.
+See docs/version-1-audit.md and docs/version-2-checkpoint.md through docs/version-5-checkpoint.md, along with docs/TODO.md, docs/vercel-deployment-troubleshooting.md, and docs/visual-review-correction.md, for audit findings, completed milestones, deployment notes, visual corrections, and unresolved confirmations.

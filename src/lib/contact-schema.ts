@@ -12,8 +12,7 @@ export const serviceOptions = [
 
 /**
  * Website contact requests are limited to general business inquiries.
- * The specialty is free text because the supported-specialty list has not
- * been confirmed by the business.
+ * Phone and practice specialty are optional to keep the first enquiry low friction.
  */
 export const contactFormSchema = z.object({
   fullName: z
@@ -34,13 +33,14 @@ export const contactFormSchema = z.object({
   phone: z
     .string()
     .trim()
-    .min(7, "Enter a phone number with at least 7 characters.")
     .max(30, "Phone number must be 30 characters or fewer.")
-    .regex(/^[+0-9().\-\s]+$/, "Use numbers and common phone symbols only."),
+    .refine(
+      (value) => value.length === 0 || (value.length >= 7 && /^[+0-9().\-\s]+$/.test(value)),
+      "Enter a valid phone number or leave this field blank.",
+    ),
   specialty: z
     .string()
     .trim()
-    .min(2, "Enter your practice specialty.")
     .max(120, "Specialty must be 120 characters or fewer."),
   serviceInterestedIn: z
     .string()

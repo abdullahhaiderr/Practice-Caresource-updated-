@@ -20,38 +20,43 @@ export function ResourcesExplorer({ articles, categories, featuredSlug }: Resour
     const normalizedQuery = query.trim().toLocaleLowerCase();
     return articles.filter((article) => {
       const matchesCategory = activeCategory === "All topics" || article.category === activeCategory;
-      const searchable = `${article.title} ${article.excerpt} ${article.category}`.toLocaleLowerCase();
+      const searchable = `${article.title} ${article.excerpt} ${article.category} ${article.searchText ?? ""}`.toLocaleLowerCase();
       return matchesCategory && (!normalizedQuery || searchable.includes(normalizedQuery));
     });
   }, [activeCategory, articles, query]);
 
   const featuredArticle = articles.find((article) => article.slug === featuredSlug);
-  const gridArticles = isDefaultView
+  const gridArticles = isDefaultView && featuredArticle
     ? filteredArticles.filter((article) => article.slug !== featuredSlug)
     : filteredArticles;
 
   return (
     <div>
-      <div className="grid gap-5 rounded-2xl border border-brand-border bg-brand-background-wash/25 p-4 sm:p-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-8">
+      <div className="grid gap-6 rounded-3xl border border-brand-border bg-white p-5 shadow-[0_12px_36px_rgb(11_27_63_/_0.055)] sm:p-7 lg:grid-cols-[minmax(15rem,0.8fr)_minmax(0,1.2fr)] lg:items-center lg:gap-10">
         <div>
-          <label htmlFor="resource-search" className="mb-2 block text-sm font-bold text-brand-dark">Search resources</label>
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.16em] text-brand-accent-ink">Find what you need</p>
+          <label htmlFor="resource-search" className="mb-2 block font-display text-2xl font-semibold text-brand-navy">
+            Search the library
+          </label>
           <div className="relative">
-            <Search size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-brand-slate" aria-hidden="true" />
+            <Search size={19} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-brand-slate" aria-hidden="true" />
             <input
               id="resource-search"
               type="search"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search billing, denials, credentialing..."
-              className="min-h-12 w-full rounded-xl border border-brand-border bg-brand-background py-3 pl-11 pr-4 text-sm text-brand-dark placeholder:text-brand-slate/75 focus:border-brand-accent-ink focus:outline-none focus:ring-2 focus:ring-brand-accent/30"
+              placeholder="Try billing, denials, enrollment…"
+              className="min-h-13 w-full rounded-xl border border-brand-border bg-brand-background-wash/45 py-3 pl-11 pr-4 text-sm text-brand-navy placeholder:text-brand-slate/75 transition-colors focus:border-brand-accent focus:outline-none focus:ring-2 focus:ring-brand-accent/20"
             />
           </div>
+          <p className="mt-2 text-xs leading-relaxed text-brand-slate">Search article titles, summaries and topics.</p>
         </div>
         <div>
-          <p className="mb-2 text-sm font-bold text-brand-dark" id="resource-category-label">Browse by topic</p>
+          <p id="resource-category-label" className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-brand-slate">Explore by topic</p>
           <div className="flex flex-wrap gap-2" role="group" aria-labelledby="resource-category-label">
             {["All topics", ...categories].map((category) => {
               const selected = activeCategory === category;
+              const count = category === "All topics" ? articles.length : articles.filter((article) => article.category === category).length;
               return (
                 <button
                   key={category}
@@ -59,13 +64,14 @@ export function ResourcesExplorer({ articles, categories, featuredSlug }: Resour
                   aria-pressed={selected}
                   onClick={() => setActiveCategory(category)}
                   className={[
-                    "min-h-10 rounded-pill border px-4 text-xs font-bold transition-colors sm:text-sm",
+                    "inline-flex min-h-10 items-center gap-2 rounded-full border px-4 text-xs font-bold transition-[background-color,border-color,color,transform] duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-ink sm:text-sm motion-reduce:transform-none",
                     selected
-                      ? "border-brand-dark bg-brand-dark text-brand-background"
-                      : "border-brand-border bg-brand-background text-brand-dark hover:border-brand-accent-ink hover:bg-brand-background-wash/50",
+                      ? "border-brand-navy bg-brand-navy text-white shadow-sm"
+                      : "border-brand-border bg-white text-brand-navy hover:border-brand-sky hover:bg-brand-background-wash/60",
                   ].join(" ")}
                 >
                   {category}
+                  <span className={selected ? "text-white/70" : "text-brand-slate"}>{count}</span>
                 </button>
               );
             })}
@@ -74,15 +80,20 @@ export function ResourcesExplorer({ articles, categories, featuredSlug }: Resour
       </div>
 
       {isDefaultView && featuredArticle ? (
-        <ScrollReveal className="mt-7 sm:mt-9">
+        <ScrollReveal className="mt-8 sm:mt-10">
           <ResourceCard article={featuredArticle} featured />
         </ScrollReveal>
       ) : null}
 
-      <div className="mb-4 mt-7 flex flex-wrap items-center justify-between gap-3 sm:mt-9">
-        <p className="text-sm font-semibold text-brand-slate" aria-live="polite">
-          {filteredArticles.length} {filteredArticles.length === 1 ? "article" : "articles"} found
-        </p>
+      <div className="mb-5 mt-8 flex flex-wrap items-center justify-between gap-3 sm:mt-10">
+        <div>
+          <h2 className="font-display text-2xl font-semibold text-brand-navy sm:text-3xl">
+            {isDefaultView ? "Latest insights" : "Matching articles"}
+          </h2>
+          <p className="mt-1 text-sm text-brand-slate" aria-live="polite">
+            {filteredArticles.length} {filteredArticles.length === 1 ? "article" : "articles"} found
+          </p>
+        </div>
         {!isDefaultView ? (
           <button
             type="button"
@@ -95,20 +106,29 @@ export function ResourcesExplorer({ articles, categories, featuredSlug }: Resour
       </div>
 
       {gridArticles.length ? (
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid auto-rows-fr items-stretch gap-5 sm:grid-cols-2 xl:grid-cols-3 xl:gap-6">
           {gridArticles.map((article, index) => (
-            <ScrollReveal key={article.slug} delay={index * 0.035} className="h-full">
+            <ScrollReveal key={article.slug} delay={index * 0.06} amount={0.1} className="h-full min-w-0">
               <ResourceCard article={article} />
             </ScrollReveal>
           ))}
         </div>
       ) : (
-        <div className="rounded-2xl border border-dashed border-brand-border bg-brand-background-wash/20 px-6 py-12 text-center">
-          <p className="font-display text-2xl font-semibold text-brand-dark">No articles match that search yet.</p>
-          <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-brand-slate">Try another phrase or choose a different topic. New resources can be added through the typed article collection.</p>
+        <div className="rounded-3xl border border-dashed border-brand-border bg-brand-background-wash/45 px-6 py-14 text-center">
+          <span className="mx-auto grid size-12 place-items-center rounded-2xl bg-white text-brand-accent-ink shadow-sm">
+            <Search size={21} aria-hidden="true" />
+          </span>
+          <p className="mt-5 font-display text-2xl font-semibold text-brand-navy">No articles match that search.</p>
+          <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-brand-slate">Try another phrase or choose a different topic to browse the current library.</p>
+          <button
+            type="button"
+            onClick={() => { setQuery(""); setActiveCategory("All topics"); }}
+            className="mt-5 inline-flex min-h-11 items-center justify-center rounded-full bg-brand-accent px-5 text-sm font-bold text-white transition-colors hover:bg-brand-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-ink focus-visible:ring-offset-2"
+          >
+            Show all articles
+          </button>
         </div>
       )}
     </div>
   );
 }
-

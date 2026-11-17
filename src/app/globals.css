@@ -70,3 +70,55 @@ img { display: block; max-width: 100%; }
   }
   .wave-divider__layer { animation: none !important; transform: none !important; will-change: auto; }
 }
+
+@media print {
+  @page {
+    margin: 16mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #111 !important;
+    font-size: 11pt;
+  }
+
+  header,
+  footer,
+  .wave-divider,
+  .article-tools,
+  .article-reading-progress,
+
+  #main-content {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  .article-content {
+    max-width: none !important;
+    color: #111 !important;
+  }
+
+  .article-content h2,
+  .article-content h3 {
+    break-after: avoid;
+    color: #111 !important;
+  }
+
+  .article-content p,
+  .article-content li,
+  .article-content aside {
+    color: #222 !important;
+  }
+
+  .article-content section,
+  .article-content aside {
+    break-inside: avoid;
+  }
+
+  a {
+    color: #111 !important;
+    text-decoration: underline;
+  }
+}

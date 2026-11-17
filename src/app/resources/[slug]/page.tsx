@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight, CalendarDays, Clock3 } from "lucide-react";
 import { Button } from "@/components/button";
 import { Container } from "@/components/container";
 import { ArticleReadingProgress } from "@/components/resources/article-reading-progress";
+import { ArticleTools } from "@/components/resources/article-tools";
 import { ResourceCard, type ResourceCardData } from "@/components/resources/resource-card";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { getReadingMinutes, getResourceArticle, resourceArticles, type ResourceArticle } from "@/data/resources/articles";
@@ -199,6 +200,7 @@ export default async function ResourceArticlePage({ params }: ArticlePageProps) 
                 {formatPublishedDate(article.publishedAt) ? <span className="inline-flex items-center gap-2"><CalendarDays size={16} aria-hidden="true" /><time dateTime={article.publishedAt}>{formatPublishedDate(article.publishedAt)}</time></span> : null}
                 <span className="inline-flex items-center gap-2"><Clock3 size={16} aria-hidden="true" />{getReadingMinutes(article)} min read</span>
               </div>
+              <div className="mt-5"><ArticleTools title={article.title} /></div>
             </ScrollReveal>
             <div className="relative aspect-[16/10] overflow-hidden rounded-3xl border border-brand-border bg-brand-background-wash shadow-card">
               <Image
@@ -218,7 +220,7 @@ export default async function ResourceArticlePage({ params }: ArticlePageProps) 
 
       <section className="py-8 sm:py-10 lg:py-12">
         <Container className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-16">
-          <article>
+          <article className="article-content">
             <p className="mb-8 max-w-[70ch] text-lg leading-[1.8] text-brand-dark sm:text-xl">{article.introduction}</p>
             <aside className="mb-9 max-w-[70ch] rounded-2xl border border-brand-border bg-brand-background-wash/40 p-5 text-sm leading-relaxed text-brand-slate" aria-label="General information notice">
               <strong className="block text-brand-dark">General information only</strong>
@@ -226,7 +228,7 @@ export default async function ResourceArticlePage({ params }: ArticlePageProps) 
             </aside>
             <ArticleContent article={article} />
           </article>
-          <aside className="self-start lg:sticky lg:top-28">
+          <aside className="self-start lg:sticky lg:top-28 print:hidden">
             <div className="lg:hidden">
               <details className="group rounded-2xl border border-brand-border bg-brand-background-wash/25 p-5">
                 <summary className="cursor-pointer list-none font-display text-xl font-semibold text-brand-dark marker:hidden [&::-webkit-details-marker]:hidden">In this article</summary>

@@ -54,3 +54,13 @@
 - Kept analytics disabled and did not add tracking scripts; the privacy preference is not a license to activate analytics without a future consent-gated integration.
 - Documented domain, security-policy, email, legal-review, browser, and Lighthouse items that still require real environment or manual verification.
 - Verified the first GitHub Actions run: dependency installation, source lint, TypeScript typecheck, and the Next.js production build all passed.
+
+## Visual correction: Resources and Contact experience
+- Reworked the Resources hero with a photo-led navy presentation, cobalt calls to action, a wave transition, and three concise topic panels based on the current article library.
+- Rebuilt the featured article as a horizontal editorial composition and standardized regular article card image ratios, title space, excerpt height, and bottom metadata/action alignment.
+- Expanded resource search to cover article body text as well as title, excerpt, and category; retained all existing filters and article routes.
+- Fixed the shared reveal wrapper so its animated surface stretches to the height of grid items, correcting the root cause of uneven card heights.
+- Reworked Contact into a stronger image-led hero, verified email contact card, “what happens next” steps, clear PHI boundary, and balanced form/FAQ panels.
+- Split the contact form into two steps; made phone and specialty optional while keeping required server-side validation, contact consent, honeypot, Turnstile and Resend notifications/receipts.
+- Added article share/copy and print controls, with print-friendly article styling.
+- Kept current business facts, existing service and article slugs, no-PHI safeguards, and the actual contact email. No address, phone number, testimonials, dates or response-time promise were invented.
