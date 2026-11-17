@@ -12,7 +12,7 @@ A responsive business services website for healthcare practices. This repository
 
 ## Requirements and setup
 
-Requires Node.js 20.9 or newer.
+Use Node.js 24.x for local development and CI. The Vercel and package configuration both target the same Node.js major version.
 
     npm ci
     cp .env.example .env.local
@@ -105,4 +105,4 @@ Do not publish unverified contact details, business hours, testimonials, statist
     npm run typecheck
     npm run build
 
-See docs/version-1-audit.md and docs/version-2-checkpoint.md through docs/version-5-checkpoint.md, along with docs/TODO.md, for audit findings, completed milestones, and unresolved confirmations.
+See docs/version-1-audit.md and docs/version-2-checkpoint.md through docs/version-5-checkpoint.md, along with docs/TODO.md and docs/vercel-deployment-troubleshooting.md, for audit findings, completed milestones, deployment notes, and unresolved confirmations.
