@@ -51,9 +51,7 @@ export default function ServicesPage() {
               <Button href="/contact" size="lg" showArrow>
                 Request a Consultation
               </Button>
-              <Button href="#all-services" variant="outline" size="lg">
-                Explore all services
-              </Button>
+              <Link href="#all-services" className="inline-flex min-h-14 items-center justify-center rounded-full border border-white/30 px-6 text-sm font-bold text-white transition-colors hover:border-brand-sky hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sky">Explore all services</Link>
             </div>
           </ScrollReveal>
           <PageHeroImage src={serviceCatalog[2].imageSrc} alt="A team member coordinating work in a professional office" />
