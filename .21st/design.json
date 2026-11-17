@@ -1,0 +1,36 @@
+{
+  "brand": "Practice Care Source",
+  "palette": {
+    "navy": "#0B1B3F",
+    "royalBlue": "#2F5BFF",
+    "skyBlue": "#4DA3FF",
+    "mintTeal": "#14C8A8",
+    "warmCoral": "#FF6B4A",
+    "iceBackground": "#F5F8FF",
+    "white": "#FFFFFF",
+    "ink": "#0F172A",
+    "mutedText": "#5B6B88"
+  },
+  "typography": {
+    "display": "Plus Jakarta Sans",
+    "body": "Inter"
+  },
+  "decisions": [
+    {
+      "decision": "Use the supplied blue logo as the starting point for a navy and royal blue identity, with sky blue and mint as supporting accents.",
+      "reason": "The palette connects the interface to the provided brand asset and retains readable contrast."
+    },
+    {
+      "decision": "Use Plus Jakarta Sans for headings and Inter for body copy.",
+      "reason": "The combination creates a clear hierarchy while remaining familiar and legible."
+    },
+    {
+      "decision": "Use restrained motion and a three-layer wave divider with reduced-motion and offscreen pause behavior.",
+      "reason": "Motion can add character without interfering with reading or accessibility."
+    },
+    {
+      "decision": "Hide unverified testimonials, statistics, contact details, and social links through central configuration.",
+      "reason": "Public claims should not be published until supported by business-approved information."
+    }
+  ]
+}
