@@ -78,3 +78,6 @@
 - Refined shared page hero imagery with an arch crop, restrained framing, layered depth and slower image zoom.
 - Shifted Services and individual service detail heroes to the same dark, image-led visual language with the existing slow wave transition.
 - Reworked Security guidance from repetitive cards into a numbered editorial list.
+
+- Added the slow testimonial marquee motion with pause-on-hover/focus and a manual pause control; reduced-motion users retain a manually scrollable row.
+- Added the same gently animated wave transition above the existing footer without changing its layout or content.

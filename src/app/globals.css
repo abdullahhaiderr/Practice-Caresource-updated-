@@ -60,7 +60,22 @@ img { display: block; max-width: 100%; }
 .wave-divider--visible .wave-divider__layer--one { animation: wave-drift-one 18s ease-in-out infinite; }
 .wave-divider--visible .wave-divider__layer--two { animation: wave-drift-two 25s ease-in-out infinite; }
 .wave-divider--visible .wave-divider__layer--three { animation: wave-drift-three 33s ease-in-out infinite; }
+@keyframes testimonial-marquee {
+  to { transform: translateX(-50%); }
+}
+.testimonial-marquee-track {
+  animation: testimonial-marquee 68s linear infinite;
+  will-change: transform;
+}
+.testimonial-marquee.is-paused .testimonial-marquee-track,
+.testimonial-marquee:hover .testimonial-marquee-track,
+.testimonial-marquee:focus-within .testimonial-marquee-track {
+  animation-play-state: paused;
+}
 @media (prefers-reduced-motion: reduce) {
+  .testimonial-marquee { overflow-x: auto; }
+  .testimonial-marquee-track { animation: none !important; transform: none !important; will-change: auto; }
+
   html { scroll-behavior: auto; }
   *, *::before, *::after {
     scroll-behavior: auto !important;
