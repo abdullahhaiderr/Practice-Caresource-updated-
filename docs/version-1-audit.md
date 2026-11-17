@@ -78,7 +78,7 @@ These names and paths are preserved. They must not be renamed, merged, or retire
 | Check | Result | Notes |
 | --- | --- | --- |
 | Source comparison | Passed | All 62 ZIP file blob hashes match the source repository main snapshot. |
-| npm run lint | Passed | Lightweight syntax and source-hygiene script parsed 37 TypeScript files and checked environment placeholders. This is not ESLint. |
+| npm run lint | Passed in the prepared workspace | The lightweight source-hygiene script parsed 37 TypeScript files and checked environment placeholders. This is not ESLint. The exact committed tree was not re-run after publication. |
 | Configuration validation | Passed | package.json and .21st/design.json parse as JSON; .env.example contains empty secret placeholders. |
 | npm ci | Blocked | Dependency installation timed out in this environment. The npm cache did not contain the project dependencies. |
 | npm run typecheck | Blocked | TypeScript is present, but installed Next.js, React, and package type definitions are unavailable because dependency installation did not complete. This is not a confirmed application type error. |
@@ -86,4 +86,4 @@ These names and paths are preserved. They must not be renamed, merged, or retire
 | Browser, accessibility, and Lighthouse checks | Not run | No browser automation or Lighthouse environment was available in this workspace. |
 | Live email delivery | Not run | Resend production credentials and a verified sender were not supplied. |
 
-No deployment, production email delivery, cross-browser test, Lighthouse score, or production build success is claimed. node_modules, .next, local environment files, and generated TypeScript build output are excluded from the repository.
+The prepared workspace passed the lightweight source-lint before publication. Dependency installation timed out, so the exact final GitHub tree was not re-run through the build toolchain. No deployment, production email delivery, cross-browser test, Lighthouse score, or production build success is claimed. node_modules, .next, local environment files, and generated TypeScript build output are excluded from the repository.
