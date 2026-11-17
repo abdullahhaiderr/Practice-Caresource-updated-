@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { Container } from "@/components/container";
 import { WaveDivider } from "@/components/wave-divider";
-import { WaveDivider } from "@/components/wave-divider";
 import { footerContact, footerQuickLinks, services, siteConfig } from "@/lib/site";
 
 export function Footer() {
