@@ -6,6 +6,7 @@ import { ScrollReveal } from "@/components/scroll-reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { ServiceCard } from "@/components/service-card";
 import { serviceCatalog } from "@/data/services";
+import { TestimonialsSection } from "@/components/home/testimonials-section";
 import { footerContact } from "@/lib/site";
 
 const challenges = [
@@ -106,6 +107,8 @@ export function HomeSections() {
           </ol>
         </Container>
       </section>
+
+      <TestimonialsSection />
 
       <section className="bg-brand-navy py-14 text-white sm:py-16 lg:py-20">
         <Container className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">

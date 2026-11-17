@@ -57,9 +57,9 @@ img { display: block; max-width: 100%; }
   50% { transform: translate3d(-0.8%, 2px, 0); }
 }
 .wave-divider__layer { transform-origin: center; animation-play-state: paused; will-change: transform; }
-.wave-divider--visible .wave-divider__layer--one { animation: wave-drift-one 13s ease-in-out infinite; }
-.wave-divider--visible .wave-divider__layer--two { animation: wave-drift-two 17s ease-in-out infinite; }
-.wave-divider--visible .wave-divider__layer--three { animation: wave-drift-three 21s ease-in-out infinite; }
+.wave-divider--visible .wave-divider__layer--one { animation: wave-drift-one 18s ease-in-out infinite; }
+.wave-divider--visible .wave-divider__layer--two { animation: wave-drift-two 25s ease-in-out infinite; }
+.wave-divider--visible .wave-divider__layer--three { animation: wave-drift-three 33s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {

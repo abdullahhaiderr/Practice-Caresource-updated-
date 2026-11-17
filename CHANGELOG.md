@@ -64,3 +64,10 @@
 - Split the contact form into two steps; made phone and specialty optional while keeping required server-side validation, contact consent, honeypot, Turnstile and Resend notifications/receipts.
 - Added article share/copy and print controls, with print-friendly article styling.
 - Kept current business facts, existing service and article slugs, no-PHI safeguards, and the actual contact email. No address, phone number, testimonials, dates or response-time promise were invented.
+
+
+## Full redesign reset: homepage and visual foundation
+- Reconnected the supplied ZIP's original client testimonial content and portrait assets in a dedicated, accessible horizontal review experience, with pause control and reduced-motion fallback.
+- Rebuilt service cards as image-led editorial panels with more intentional image treatment, hierarchy, depth and hover feedback.
+- Slowed the three layered hero waves to 18, 25 and 33 seconds for calm continuous motion; added a manual pause state to the testimonial rail.
+- Preserved the approved global header and footer while beginning the content-page redesign from the supplied ZIP and design references.
