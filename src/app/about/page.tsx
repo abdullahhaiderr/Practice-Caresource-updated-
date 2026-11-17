@@ -84,7 +84,7 @@ export default function AboutPage() {
 
       <section className="bg-brand-navy py-14 text-white sm:py-18 lg:py-22">
         <Container>
-          <ScrollReveal><SectionHeading eyebrow="A connected service mix" title="Different needs, one place to start." description="Explore the services currently listed by Practice Care Source. The right combination depends on your practice and the work you want to discuss."/></ScrollReveal>
+          <ScrollReveal><div className="max-w-3xl"><p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-sky">A connected service mix</p><h2 className="mt-3 font-display text-4xl font-semibold leading-tight text-white sm:text-5xl">Different needs, one place to start.</h2><p className="mt-4 text-base leading-relaxed text-white/70 sm:text-lg">Explore the services currently listed by Practice Care Source. The right combination depends on your practice and the work you want to discuss.</p></div></ScrollReveal>
           <div className="mt-8 grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
             {serviceCatalog.map((service,index)=>(
               <Link key={service.slug} href={`/services/${service.slug}`} className="group flex min-h-20 items-center justify-between gap-4 border-b border-white/15 py-5 transition-colors hover:border-brand-sky">
