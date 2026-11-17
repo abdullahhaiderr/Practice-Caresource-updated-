@@ -83,3 +83,5 @@
 - Added the same gently animated wave transition above the existing footer without changing its layout or content.
 
 - Reworked the Privacy Policy and Terms of Use presentation into an accessible editorial reading layout with section navigation; retained their draft notice and existing `noindex` metadata.
+
+- Rebuilt the homepage content sections with an editorial list, connected service imagery, a non-card process timeline, restored testimonials, and more varied section compositions.
