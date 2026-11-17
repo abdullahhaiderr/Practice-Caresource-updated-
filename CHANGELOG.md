@@ -13,3 +13,13 @@
 - Added a practice challenge section, six service cards from the existing catalog, a six-step working process, onboarding, FAQs, and consultation CTA.
 - Added wave treatment above the footer and improved footer navigation and business inquiry notice.
 - Kept testimonials, coverage statistics, unverified specialties, and unsupported technology claims hidden.
+
+## Version 3: service and company information
+- Added Organization, Service, FAQPage, ItemList, AboutPage, and conditional breadcrumb structured data.
+- Added a standalone Security and Information Handling page with practical pre-access questions and a clear no-PHI notice.
+- Added specialty-fit discussion content without claiming an unverified specialty directory or inventing specialties.
+- Added service-specific information-access guidance and FAQs on patient data.
+- Replaced the About page's partial service summary with the complete current six-service catalog.
+- Removed unsupported US service-area wording from the Services overview and About page.
+- Added the Security page to footer quick links.
+- Documented canonical-domain, specialty-list, certification, and build-validation limitations.

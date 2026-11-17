@@ -15,6 +15,7 @@ import { PageHeroImage } from "@/components/page-hero-image";
 import { serviceCatalog } from "@/data/services";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { SectionHeading } from "@/components/section-heading";
+import { aboutStructuredData, serializeJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: "About Practice Care Source",
@@ -86,6 +87,7 @@ const connectedSupport = [
 export default function AboutPage() {
   return (
     <main id="main-content">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(aboutStructuredData()) }} />
       <section className="relative isolate overflow-hidden border-b border-brand-border/70 bg-brand-background py-8 sm:py-10 lg:py-12 lg:pb-6">
         <Container className="relative grid items-start gap-10 lg:min-h-[25rem] lg:grid-cols-[1.15fr_0.85fr]">
           <ScrollReveal className="max-w-3xl lg:max-w-none">
@@ -113,7 +115,7 @@ export default function AboutPage() {
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-brand-slate sm:text-lg lg:min-h-[5.5rem]">
               Practice Care Source brings medical billing and practice support together
-              for US healthcare providers, with clear responsibilities and
+              for healthcare providers, with clear responsibilities and
               thoughtful coordination around your team's way of working.
             </p>
             <div className="mt-6 flex min-h-14 flex-col gap-3 sm:flex-row sm:items-center">
@@ -138,10 +140,10 @@ export default function AboutPage() {
                 <p className="text-sm font-bold uppercase tracking-[0.14em] text-brand-accent">Practice support</p>
                 <h2 className="mt-3 font-display text-3xl font-semibold leading-tight">Services shaped around your workflow</h2>
                 <ul className="mt-6 space-y-3 text-sm font-semibold text-brand-background/85">
-                  {["Medical billing", "Credentialing & enrollment", "AR and denial follow-up", "Administrative and digital support"].map((service) => (
-                    <li key={service} className="flex items-center gap-3">
+                  {serviceCatalog.map((service) => (
+                    <li key={service.slug} className="flex items-center gap-3">
                       <Check size={17} className="shrink-0 text-brand-accent" aria-hidden="true" />
-                      {service}
+                      {service.shortTitle}
                     </li>
                   ))}
                 </ul>
@@ -153,7 +155,7 @@ export default function AboutPage() {
             <SectionHeading
               eyebrow="Our approach"
               title="Practice support, shaped around people."
-              description="Practice Care Source brings medical billing and related practice support under one roof for US healthcare providers."
+              description="Practice Care Source brings medical billing and related practice support under one roof for healthcare providers."
             /><p className="mt-6 text-base leading-relaxed text-brand-slate sm:text-lg">The service scope, responsibilities, and review points are discussed with each practice before work begins. This helps teams understand what is included and where their input is needed.</p>
           </ScrollReveal>
         </Container>

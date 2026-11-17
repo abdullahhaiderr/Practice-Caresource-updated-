@@ -9,6 +9,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { ServiceCard } from "@/components/service-card";
 import { serviceCatalog } from "@/data/services";
 import { ServiceExplorer } from "./service-explorer";
+import { servicesIndexStructuredData, serializeJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -19,6 +20,7 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <main id="main-content">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(servicesIndexStructuredData(serviceCatalog)) }} />
       <section className="relative isolate overflow-hidden border-b border-brand-border/70 bg-brand-background py-8 sm:py-10 lg:py-12 lg:pb-6">
         <Container className="relative grid items-start gap-10 lg:min-h-[25rem] lg:grid-cols-[1.15fr_0.85fr]">
           <ScrollReveal className="max-w-3xl lg:max-w-none">
@@ -40,7 +42,7 @@ export default function ServicesPage() {
               Everything Your Practice Needs, <span className="text-brand-accent-ink">Under One Roof</span>
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-brand-slate sm:text-lg lg:min-h-[5.5rem]">
-              From billing and enrollment to patient-facing digital support, Practice Care Source helps US practices bring important administrative work into one coordinated conversation.
+              From billing and enrollment to administrative and digital support, explore the services currently listed by Practice Care Source and discuss which tasks fit your practice.
             </p>
             <div className="mt-6 flex min-h-14 flex-col gap-3 sm:flex-row sm:items-center">
               <Button href="/contact" size="lg" showArrow>
@@ -83,6 +85,18 @@ export default function ServicesPage() {
 
       <section className="border-y border-brand-border/75 bg-brand-background-wash/30 py-10 sm:py-12 lg:py-16">
         <Container>
+          <ScrollReveal>
+            <div className="grid gap-6 rounded-3xl border border-brand-accent/20 bg-white p-6 shadow-card sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-accent-ink">Specialty and practice fit</p>
+                <h2 className="mt-2 font-display text-2xl font-semibold text-brand-dark sm:text-3xl">Start with the workflow your specialty needs.</h2>
+                <p className="mt-3 max-w-3xl text-sm leading-relaxed text-brand-slate sm:text-base">
+                  Specialty requirements and payer workflows can differ. Share your specialty and the general tasks you want to discuss so the possible service scope can be reviewed before work begins. Do not include patient information.
+                </p>
+              </div>
+              <Button href="/contact" size="lg" showArrow className="self-start">Discuss your needs</Button>
+            </div>
+          </ScrollReveal>
           <ScrollReveal>
             <SectionHeading
               eyebrow="Find your starting point"

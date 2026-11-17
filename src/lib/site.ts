@@ -57,5 +57,5 @@ export const footerContact = {
   phoneHref: siteConfig.phone?.href ?? null,
   tagline: "The source of care for your practice.",
 };
-export const footerQuickLinks = navigationLinks;
+export const footerQuickLinks = [...navigationLinks, { label: "Security", href: "/security" }];
 export const siteFeatures = siteConfig.features;

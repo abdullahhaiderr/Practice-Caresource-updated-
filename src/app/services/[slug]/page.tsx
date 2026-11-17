@@ -9,6 +9,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { ServiceCard } from "@/components/service-card";
 import { PageHeroImage } from "@/components/page-hero-image";
 import { getServiceBySlug, serviceCatalog, type ServiceContent } from "@/data/services";
+import { serviceStructuredData, serializeJsonLd } from "@/lib/structured-data";
 
 type ServicePageProps = {
   params: Promise<{ slug: string }>;
@@ -40,12 +41,24 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   const service = getServiceBySlug(slug);
   if (!service) notFound();
 
+  const specialtyFaq = {
+    question: "Can you support the workflows used by my specialty?",
+    answer: "Practice workflows and requirements differ. Tell us about your specialty and the tasks you want to discuss so the possible scope can be reviewed before work begins.",
+  };
+  const patientDataFaq = {
+    question: "Can I send patient information through this website?",
+    answer: "No. The website contact form and general inquiry email are for business inquiries only. Do not send patient names, protected health information (PHI), or other sensitive patient data.",
+  };
+  const serviceFaqs = [...service.faqs, specialtyFaq, patientDataFaq];
+  const structuredData = serviceStructuredData(service);
+
   const relatedServices = service.relatedServices
     .map((relatedSlug) => getServiceBySlug(relatedSlug))
     .filter((related): related is ServiceContent => Boolean(related));
 
   return (
     <main id="main-content">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }} />
       <section className="relative isolate overflow-hidden border-b border-brand-border/70 bg-brand-background py-8 sm:py-10 lg:py-12 lg:pb-6">
         <Container className="relative grid items-start gap-10 lg:min-h-[25rem] lg:grid-cols-[1.15fr_0.85fr]">
           <ScrollReveal className="max-w-3xl">
@@ -150,6 +163,21 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
         </Container>
       </section>
 
+      <section className="border-y border-brand-border bg-brand-background-wash/50 py-10 sm:py-12 lg:py-14">
+        <Container className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+          <ScrollReveal>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-accent-ink">Information and access</p>
+            <h2 className="mt-2 font-display text-2xl font-semibold text-brand-dark sm:text-3xl">Agree on access before sharing practice information.</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-brand-slate sm:text-base">
+              Before any work involving practice systems or confidential information is considered, discuss the task scope, approved access, review responsibilities, safeguards, and any agreements that may be required. Do not send patient information through this website or general inquiry email.
+            </p>
+          </ScrollReveal>
+          <Link href="/security" className="inline-flex min-h-11 items-center gap-2 self-start rounded-full border border-brand-border bg-white px-5 text-sm font-bold text-brand-accent-ink transition-colors hover:border-brand-accent hover:bg-brand-background-wash focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-ink">
+            Security information <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+        </Container>
+      </section>
+
       <section className="py-10 sm:py-12 lg:py-16">
         <Container size="narrow">
           <ScrollReveal>
@@ -159,7 +187,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               align="center"
             />
             <div className="mt-6 divide-y divide-brand-border border-y border-brand-border">
-              {service.faqs.map((faq) => (
+              {serviceFaqs.map((faq) => (
                 <details key={faq.question} className="group py-1">
                   <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-5 py-4 font-bold text-brand-dark transition-colors hover:text-brand-accent-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-ink">
                     {faq.question}

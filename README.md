@@ -45,12 +45,14 @@ Keep secrets in deployment settings or a local .env.local file. Never commit rea
 - /resources and /resources/[slug]
 - /api/contact (POST)
 - /api/testimonial (POST)
+- /security
 
 ## Editing content
 
 - Services: src/data/services.ts
 - Resources: src/data/resources/articles.ts
 - Brand, navigation, contact details and feature flags: src/lib/site.ts
+- Structured data helpers: src/lib/structured-data.ts
 - Theme tokens: src/app/globals.css and tailwind.config.ts
 - Public assets: public/
 
@@ -62,4 +64,4 @@ Do not publish unverified contact details, business hours, testimonials, statist
     npm run typecheck
     npm run build
 
-See docs/version-1-audit.md, docs/version-2-checkpoint.md, and docs/TODO.md for audit findings, the current milestone, and unresolved confirmations.
+See docs/version-1-audit.md, docs/version-2-checkpoint.md, docs/version-3-checkpoint.md, and docs/TODO.md for audit findings, completed milestones, and unresolved confirmations.
