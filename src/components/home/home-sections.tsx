@@ -6,7 +6,6 @@ import { ScrollReveal } from "@/components/scroll-reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { ServiceCard } from "@/components/service-card";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
-import { WaveDivider } from "@/components/wave-divider";
 import { serviceCatalog } from "@/data/services";
 import { footerContact } from "@/lib/site";
 
