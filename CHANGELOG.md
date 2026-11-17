@@ -53,3 +53,4 @@
 - Added GitHub Actions quality checks for npm install, source lint, TypeScript typecheck, and production build.
 - Kept analytics disabled and did not add tracking scripts; the privacy preference is not a license to activate analytics without a future consent-gated integration.
 - Documented domain, security-policy, email, legal-review, browser, and Lighthouse items that still require real environment or manual verification.
+- Verified the first GitHub Actions run: dependency installation, source lint, TypeScript typecheck, and the Next.js production build all passed.

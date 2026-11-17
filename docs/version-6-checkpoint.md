@@ -65,9 +65,9 @@
 | Security headers | Source-reviewed | Header configuration and production HTTPS-only HSTS condition checked. |
 | Testimonial API guard | Source-reviewed | Origin validation and no-store responses added. |
 | Accessibility/performance source review | Source-reviewed | Existing skip link, focus states, reduced motion, responsive images, and font/image behavior reviewed. |
-| GitHub Actions workflow | Added | First workflow execution needs to complete after commit; no passing CI is claimed yet. |
-| TypeScript typecheck | Pending CI | Not run locally in this environment. |
-| Next.js production build | Pending CI | Not run locally in this environment. |
+| GitHub Actions workflow | Passed | Run #1 completed successfully after the Version 6 commit. [View workflow run](https://github.com/abdullahhaiderr/Practice-Caresource-updated-/actions/runs/44167875742). |
+| TypeScript typecheck | Passed | GitHub Actions run #1 completed successfully. |
+| Next.js production build | Passed | GitHub Actions run #1 completed successfully. |
 | Browser, mobile, screen-reader, and Lighthouse tests | Not run | Requires an actual deployed or locally running site. |
 | Production domain, DNS, and Vercel deployment | Not verified | The canonical domain remains unconfirmed in the repository settings. |
 | Resend and Turnstile live tests | Not run | Require actual production credentials and test submissions. |
@@ -83,4 +83,4 @@
 - Configure a shared rate limiter or provider WAF for reliable distributed rate limiting.
 - Review any future Content Security Policy in staging before enabling it.
 
-No successful Vercel deployment, production build, live email, CAPTCHA verification, browser audit, or Lighthouse result is claimed by this repository change.
+No successful Vercel deployment, live email, CAPTCHA verification, browser audit, or Lighthouse result is claimed by this repository change. The Next.js production build passed in GitHub Actions.
