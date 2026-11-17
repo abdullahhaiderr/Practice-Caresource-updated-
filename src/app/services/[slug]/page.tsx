@@ -11,6 +11,7 @@ import { ServiceCard } from "@/components/service-card";
 import { PageHeroImage } from "@/components/page-hero-image";
 import { getServiceBySlug, serviceCatalog, type ServiceContent } from "@/data/services";
 import { serviceStructuredData, serializeJsonLd } from "@/lib/structured-data";
+import { WaveDivider } from "@/components/wave-divider";
 
 type ServicePageProps = {
   params: Promise<{ slug: string }>;
@@ -61,11 +62,11 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   return (
     <main id="main-content">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(structuredData) }} />
-      <section className="relative isolate overflow-hidden border-b border-brand-border/70 bg-brand-background py-8 sm:py-10 lg:py-12 lg:pb-6">
-        <Container className="relative grid items-start gap-10 lg:min-h-[25rem] lg:grid-cols-[1.15fr_0.85fr]">
+      <section className="relative isolate overflow-hidden bg-brand-navy py-8 text-white sm:py-10 lg:py-12">
+        <Container className="relative grid items-center gap-10 lg:min-h-[29rem] lg:grid-cols-[1.08fr_0.92fr]">
           <ScrollReveal className="max-w-3xl">
             <nav aria-label="Breadcrumb" className="mb-4">
-              <ol className="flex flex-wrap items-center gap-2 text-sm font-semibold text-brand-slate">
+              <ol className="flex flex-wrap items-center gap-2 text-sm font-semibold text-white/60">
                 <li>
                   <Link href="/" className="rounded-sm transition-colors hover:text-brand-accent-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-ink">Home</Link>
                 </li>
@@ -74,21 +75,21 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                   <Link href="/services" className="rounded-sm transition-colors hover:text-brand-accent-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-ink">Services</Link>
                 </li>
                 <li aria-hidden="true"><ChevronRight size={15} /></li>
-                <li aria-current="page" className="text-brand-dark">{service.shortTitle}</li>
+                <li aria-current="page" className="text-white">{service.shortTitle}</li>
               </ol>
             </nav>
             <p className="mb-3 text-sm font-bold uppercase tracking-[0.16em] text-brand-accent-ink">
               Practice Care Source practice support
             </p>
-            <h1 className="text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight text-brand-dark sm:text-6xl lg:min-h-[2em] lg:text-7xl">
+            <h1 className="text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight text-white sm:text-6xl lg:text-7xl">
               {service.title}
             </h1>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-brand-slate sm:text-lg lg:min-h-[5.5rem]">
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/72 sm:text-lg">
               {service.overview}
             </p>
             <div className="mt-6 flex min-h-14 flex-col gap-3 sm:flex-row sm:items-center">
               <Button href="/contact" size="lg" showArrow>Request a Consultation</Button>
-              <Link href="/services" className="inline-flex min-h-12 items-center gap-2 px-3 text-sm font-bold text-brand-dark transition-colors hover:text-brand-accent-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-ink">
+              <Link href="/services" className="inline-flex min-h-12 items-center gap-2 px-3 text-sm font-bold text-white transition-colors hover:text-brand-sky focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-sky">
                 View all services <ArrowRight size={17} aria-hidden="true" />
               </Link>
             </div>
@@ -107,7 +108,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             />
             <ul className="mt-6 grid gap-3 sm:grid-cols-2">
               {service.whatsIncluded.map((item) => (
-                <li key={item} className="flex items-start gap-3 rounded-2xl border border-brand-border bg-brand-background/70 p-4 text-sm leading-relaxed text-brand-slate transition-colors hover:border-brand-accent/45 hover:bg-brand-background">
+                <li key={item} className="flex items-start gap-3 border-b border-brand-border bg-transparent py-4 pr-3 text-sm leading-relaxed text-brand-slate transition-colors hover:border-brand-accent">
                   <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-brand-accent/15 text-brand-accent-ink" aria-hidden="true">
                     <Check size={15} strokeWidth={2.3} />
                   </span>
@@ -117,7 +118,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
             </ul>
           </ScrollReveal>
           <ScrollReveal delay={0.08}>
-            <aside className="h-full rounded-3xl border border-brand-border bg-brand-background-wash/40 p-5 sm:p-6">
+            <aside className="h-full border-l-2 border-brand-sky bg-brand-background-wash/45 p-6 sm:p-8">
               <p className="text-sm font-bold uppercase tracking-[0.15em] text-brand-accent-ink">Who it's for</p>
               <h2 className="mt-3 font-display text-3xl font-semibold leading-tight text-brand-dark sm:text-4xl">
                 Built for real practice workflows
@@ -149,10 +150,10 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               align="center"
             />
           </ScrollReveal>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-8 grid gap-x-7 sm:grid-cols-2 lg:grid-cols-4">
             {service.howWeWork.map((step, index) => (
               <ScrollReveal key={step.title} delay={index * 0.04}>
-                <article className="h-full rounded-2xl border border-brand-border bg-brand-background p-5 transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-1 hover:border-brand-accent/50 hover:shadow-card sm:p-6">
+                <article className="h-full border-t-2 border-brand-border bg-transparent py-6 transition-colors duration-300 hover:border-brand-accent sm:py-7">
                   <span className="grid size-10 place-items-center rounded-xl bg-brand-dark text-sm font-bold text-brand-background" aria-hidden="true">
                     0{index + 1}
                   </span>

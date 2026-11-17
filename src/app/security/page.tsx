@@ -4,6 +4,7 @@ import { ArrowRight, FileCheck2, LockKeyhole, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/button";
 import { Container } from "@/components/container";
 import { SectionHeading } from "@/components/section-heading";
+import { WaveDivider } from "@/components/wave-divider";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { breadcrumbStructuredData, serializeJsonLd } from "@/lib/structured-data";
 import { getCanonicalUrl, siteConfig } from "@/lib/site";
@@ -50,7 +51,7 @@ export default function SecurityPage() {
           dangerouslySetInnerHTML={{ __html: serializeJsonLd({ "@context": "https://schema.org", ...breadcrumb }) }}
         />
       ) : null}
-      <section className="border-b border-brand-border bg-brand-navy py-14 text-white sm:py-16 lg:py-20">
+      <section className="relative isolate overflow-hidden bg-brand-navy py-14 text-white sm:py-16 lg:py-20">
         <Container>
           <ScrollReveal className="max-w-3xl">
             <nav aria-label="Breadcrumb" className="mb-6 text-sm font-semibold text-slate-300">
@@ -78,10 +79,10 @@ export default function SecurityPage() {
               description="The right controls depend on the systems, information, and responsibilities involved. Confirm the arrangements directly before granting access or sharing confidential material."
             />
           </ScrollReveal>
-          <div className="mt-9 grid gap-5 md:grid-cols-3">
+          <div className="mt-9 divide-y divide-brand-border border-y border-brand-border">
             {guidance.map(({ title, description, icon: Icon }, index) => (
               <ScrollReveal key={title} delay={index * 0.05} className="h-full">
-                <article className="h-full rounded-2xl border border-brand-border bg-white p-6 shadow-card">
+                <article className="grid gap-4 py-7 sm:grid-cols-[4rem_0.7fr_1.3fr] sm:items-center sm:gap-7">
                   <span className="grid size-12 place-items-center rounded-xl bg-brand-background-wash text-brand-accent-ink"><Icon size={23} aria-hidden="true" /></span>
                   <h2 className="mt-5 font-display text-xl font-semibold text-brand-dark">{title}</h2>
                   <p className="mt-3 text-sm leading-relaxed text-brand-slate">{description}</p>

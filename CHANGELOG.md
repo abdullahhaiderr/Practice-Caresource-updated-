@@ -71,3 +71,10 @@
 - Rebuilt service cards as image-led editorial panels with more intentional image treatment, hierarchy, depth and hover feedback.
 - Slowed the three layered hero waves to 18, 25 and 33 seconds for calm continuous motion; added a manual pause state to the testimonial rail.
 - Preserved the approved global header and footer while beginning the content-page redesign from the supplied ZIP and design references.
+
+
+## Sitewide editorial design pass
+- Replaced the homepage's generic workflow card stack with an art-directed photographic composition and a clearly labelled illustrative workflow panel.
+- Refined shared page hero imagery with an arch crop, restrained framing, layered depth and slower image zoom.
+- Shifted Services and individual service detail heroes to the same dark, image-led visual language with the existing slow wave transition.
+- Reworked Security guidance from repetitive cards into a numbered editorial list.

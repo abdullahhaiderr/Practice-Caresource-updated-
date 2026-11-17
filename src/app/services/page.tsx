@@ -8,6 +8,7 @@ import { PageHeroImage } from "@/components/page-hero-image";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { ServiceCard } from "@/components/service-card";
+import { WaveDivider } from "@/components/wave-divider";
 import { serviceCatalog } from "@/data/services";
 import { ServiceExplorer } from "./service-explorer";
 import { servicesIndexStructuredData, serializeJsonLd } from "@/lib/structured-data";
@@ -23,34 +24,34 @@ export default function ServicesPage() {
   return (
     <main id="main-content">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: serializeJsonLd(servicesIndexStructuredData(serviceCatalog)) }} />
-      <section className="relative isolate overflow-hidden border-b border-brand-border/70 bg-brand-background py-8 sm:py-10 lg:py-12 lg:pb-6">
-        <Container className="relative grid items-start gap-10 lg:min-h-[25rem] lg:grid-cols-[1.15fr_0.85fr]">
+      <section className="relative isolate overflow-hidden bg-brand-navy py-8 text-white sm:py-10 lg:py-12">
+        <Container className="relative grid items-center gap-10 lg:min-h-[29rem] lg:grid-cols-[1.08fr_0.92fr]">
           <ScrollReveal className="max-w-3xl lg:max-w-none">
             <nav aria-label="Breadcrumb" className="mb-4">
-              <ol className="flex items-center gap-2 text-sm font-semibold text-brand-slate">
+              <ol className="flex items-center gap-2 text-sm font-semibold text-white/60">
                 <li>
                   <Link href="/" className="rounded-sm transition-colors hover:text-brand-accent-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-ink">
                     Home
                   </Link>
                 </li>
                 <li aria-hidden="true">/</li>
-                <li aria-current="page" className="text-brand-dark">Services</li>
+                <li aria-current="page" className="text-white">Services</li>
               </ol>
             </nav>
             <p className="mb-3 text-sm font-bold uppercase tracking-[0.16em] text-brand-accent-ink">
               Practice support, connected
             </p>
-            <h1 className="text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight text-brand-dark sm:text-6xl lg:min-h-[2em] lg:text-7xl">
-              Everything Your Practice Needs, <span className="text-brand-accent-ink">Under One Roof</span>
+            <h1 className="text-balance font-display text-5xl font-semibold leading-[0.98] tracking-tight text-white sm:text-6xl lg:text-7xl">
+              Everything Your Practice Needs, <span className="text-brand-sky">Under One Roof</span>
             </h1>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-brand-slate sm:text-lg lg:min-h-[5.5rem]">
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/72 sm:text-lg">
               From billing and enrollment to administrative and digital support, explore the services currently listed by Practice Care Source and discuss which tasks fit your practice.
             </p>
             <div className="mt-6 flex min-h-14 flex-col gap-3 sm:flex-row sm:items-center">
               <Button href="/contact" size="lg" showArrow>
                 Request a Consultation
               </Button>
-              <Button href="#all-services" variant="ghost" size="lg">
+              <Button href="#all-services" variant="outline" size="lg">
                 Explore all services
               </Button>
             </div>
