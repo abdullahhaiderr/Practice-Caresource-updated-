@@ -1,74 +1,60 @@
-# Practice Care Source website
+# Practice Care Source
 
-A responsive business services website for Practice Care Source. The current project uses the supplied source snapshot and preserves the existing service, company, contact, and resource routes while the six-version redesign is completed.
+A responsive business services website for healthcare practices. This repository follows a six-version redesign workflow and preserves existing service, company, resource, and API routes while the design is updated.
 
 ## Stack
 
-- Next.js 15 App Router
-- React 19 and TypeScript
-- Tailwind CSS 3 design tokens
-- Framer Motion with reduced-motion support
-- lucide-react icons
-- React Hook Form and Zod validation
-- Resend for configured business inquiry email
+- Next.js App Router, React, TypeScript
+- Tailwind CSS and CSS custom properties
+- Framer Motion and lucide-react
+- React Hook Form, Zod, and Resend
 
-## Requirements
+## Requirements and setup
 
-- Node.js 20.9 or newer
-- npm 10 or compatible package manager
-
-## Getting started
+Requires Node.js 20.9 or newer.
 
     npm ci
     cp .env.example .env.local
     npm run dev
 
-On Windows PowerShell, create the local environment file with:
+In Windows PowerShell:
 
     Copy-Item .env.example .env.local
 
-Open http://localhost:3000 after the development server starts.
+Open http://localhost:3000.
 
 ## Environment variables
 
-| Variable | Purpose | Required for local build |
-| --- | --- | --- |
-| RESEND_API_KEY | Resend API key for sending business inquiry email | No |
-| CONTACT_TO_EMAIL | Notification destination, documented as info@practicecaresource.com | No |
-| CONTACT_FROM_EMAIL | Verified sender address configured in Resend | No |
-| NEXT_PUBLIC_SITE_URL | Verified canonical production URL, without a trailing slash | No |
-| TURNSTILE_SECRET_KEY | Optional Cloudflare Turnstile server secret | No |
-| NEXT_PUBLIC_TURNSTILE_SITE_KEY | Optional Cloudflare Turnstile site key | No |
+| Variable | Purpose |
+| --- | --- |
+| RESEND_API_KEY | Resend API key used by the contact API |
+| CONTACT_TO_EMAIL | Inquiry notification destination, currently info@practicecaresource.com |
+| CONTACT_FROM_EMAIL | Verified sender address configured in Resend |
+| NEXT_PUBLIC_SITE_URL | Canonical site URL after the production domain is confirmed |
+| TURNSTILE_SECRET_KEY | Optional Turnstile server key |
+| NEXT_PUBLIC_TURNSTILE_SITE_KEY | Optional Turnstile site key |
 
-Never commit .env.local, API keys, credentials, or production secrets. The repository includes only empty placeholders in .env.example.
+Keep secrets in deployment settings or a local .env.local file. Never commit real secrets.
 
-## Project structure
-
-- src/app/: App Router pages and API routes
-- src/components/: shared navigation, footer, cards, hero, motion, and layout components
-- src/data/services.ts: current service inventory and service detail content
-- src/data/resources/articles.ts: resource article content
-- src/lib/site.ts: public site configuration, content flags, navigation, and contact details
-- src/lib/contact-schema.ts: shared contact form validation
-- public/: approved local brand and page assets
-- docs/: audit findings and motion guidance
-- .21st/: design tokens and design decisions
-
-## Current routes
+## Main routes
 
 - /
 - /about
 - /contact
-- /services
-- /services/[slug]
-- /resources
-- /resources/[slug]
+- /services and /services/[slug]
+- /resources and /resources/[slug]
 - /api/contact (POST)
 - /api/testimonial (POST)
 
-## Editing services and site details
+## Editing content
 
-Update service content in src/data/services.ts. Update navigation, brand configuration, contact details, canonical URL, and feature flags in src/lib/site.ts. Keep unverified business facts set to null or feature-gated until the business confirms them.
+- Services: src/data/services.ts
+- Resources: src/data/resources/articles.ts
+- Brand, navigation, contact details and feature flags: src/lib/site.ts
+- Theme tokens: src/app/globals.css and tailwind.config.ts
+- Public assets: public/
+
+Do not publish unverified contact details, business hours, testimonials, statistics, certifications, or service claims. The contact form is for general business inquiries only. Visitors must not submit patient names, PHI, or sensitive patient data.
 
 ## Checks
 
@@ -76,8 +62,4 @@ Update service content in src/data/services.ts. Update navigation, brand configu
     npm run typecheck
     npm run build
 
-See docs/version-1-audit.md for the current route map, findings, risks, and unresolved business information. See docs/TODO.md for items that require confirmation or later-version implementation.
-
-## Version workflow
-
-Each completed redesign checkpoint is documented in CHANGELOG.md and committed directly to the main branch of the destination GitHub repository. Continue only after the checkpoint is reviewed, unless the project owner explicitly asks to complete all remaining versions in one run.
+See docs/version-1-audit.md, docs/version-2-checkpoint.md, and docs/TODO.md for audit findings, the current milestone, and unresolved confirmations.

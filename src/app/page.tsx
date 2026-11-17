@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import { HomeHero } from "@/components/home/home-hero";
 import { HomeSections } from "@/components/home/home-sections";
 
-
 export const metadata: Metadata = {
-  title: "Practice Care Source | The source of care for your practice",
-  description:
-    "Medical billing, credentialing, AR recovery, and practice support for US healthcare providers, all under one roof.",
+  title: "Practice Care Source | Medical Billing and Practice Support",
+  description: "Explore medical billing, credentialing, administrative support, AR recovery, denial management, and website development services from Practice Care Source.",
 };
 
 export default function HomePage() {
@@ -17,4 +15,3 @@ export default function HomePage() {
     </main>
   );
 }
-

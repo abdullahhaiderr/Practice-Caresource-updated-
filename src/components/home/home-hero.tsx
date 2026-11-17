@@ -1,115 +1,47 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import {
-  CircleDollarSign,
-  BadgeCheck,
-  ClipboardCheck,
-  Headset,
-  Play,
-} from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/button";
 import { Container } from "@/components/container";
 import { HeroVisual } from "@/components/home/hero-visual";
+import { WaveDivider } from "@/components/wave-divider";
 
-const features = [
-  { label: "Medical Billing & Coding", icon: ClipboardCheck },
-  { label: "Credentialing", icon: BadgeCheck },
-  { label: "AR & Denial Recovery", icon: CircleDollarSign },
-  { label: "Dedicated Support", icon: Headset },
-];
+const principles = ["Clear workflows", "Agreed responsibilities", "Practice-focused support"];
 
-type HomeHeroProps = {
-  heroImage?: string;
-};
-
-export function HomeHero({ heroImage }: HomeHeroProps) {
-  const reducedMotion = useReducedMotion();
-
+export function HomeHero() {
+  const reduceMotion = useReducedMotion();
   return (
-    <section className="relative isolate overflow-hidden border-b border-brand-border/70 bg-brand-background">
-      <div
-        className="pointer-events-none absolute -left-28 top-1/2 hidden size-72 -translate-y-1/2 rounded-full border-[3rem] border-brand-accent/10 lg:block"
-        aria-hidden="true"
-      />
-      <Container className="relative grid items-center gap-6 py-5 sm:py-7 lg:min-h-[calc(100svh-4.75rem)] lg:grid-cols-[1.04fr_0.96fr] lg:gap-5 lg:py-4 xl:gap-8">
-        <div className="relative z-10 max-w-2xl">
-
-          <motion.h1
-            initial={reducedMotion ? false : { opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reducedMotion ? 0 : 0.62, delay: reducedMotion ? 0 : 0.08, ease: "easeOut" }}
-            className="mt-1 text-balance font-display text-[clamp(3rem,5.2vw,5.2rem)] font-semibold leading-[0.9] tracking-[-0.045em] text-brand-dark"
-          >
-            <span className="block">The Source of</span>
-            <span className="block">Care</span>
-            <span className="block text-brand-accent">For Your Practice</span>
-          </motion.h1>
-
-          <motion.p
-            initial={reducedMotion ? false : { opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reducedMotion ? 0 : 0.52, delay: reducedMotion ? 0 : 0.17, ease: "easeOut" }}
-            className="mt-3 max-w-xl text-base leading-relaxed text-brand-slate sm:text-lg"
-          >
-            Billing, credentialing, AR recovery and more, all under one roof. We
-            handle the revenue cycle so US healthcare providers can focus on
-            patients.
+    <section className="relative isolate overflow-hidden bg-brand-navy text-white">
+      <div className="pointer-events-none absolute -left-40 top-10 size-[32rem] rounded-full border-[5rem] border-sky-300/10" aria-hidden="true" />
+      <div className="pointer-events-none absolute -bottom-56 right-0 size-[38rem] rounded-full bg-brand-accent/20 blur-3xl" aria-hidden="true" />
+      <Container className="relative grid items-center gap-12 py-14 sm:py-16 lg:min-h-[660px] lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:py-20">
+        <div className="max-w-2xl">
+          <motion.p initial={reduceMotion ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.45 }} className="inline-flex items-center gap-2 rounded-full border border-sky-200/25 bg-white/5 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-sky-100">
+            <span className="size-2 rounded-full bg-brand-mint" aria-hidden="true" /> Practice support, connected
           </motion.p>
-
-          <motion.div
-            initial={reducedMotion ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reducedMotion ? 0 : 0.48, delay: reducedMotion ? 0 : 0.23, ease: "easeOut" }}
-            className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center"
-          >
-            <Button href="/contact" size="lg" showArrow>
-              Request a Consultation
-            </Button>
-            <a
-              href="#process"
-              className="group inline-flex min-h-12 items-center gap-3 self-start rounded-pill px-2 text-sm font-bold text-brand-dark underline decoration-brand-accent/75 decoration-2 underline-offset-4 transition-colors hover:text-brand-accent-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent-ink"
-            >
-              <span className="grid size-10 place-items-center rounded-full border border-brand-slate/35 transition-colors group-hover:border-brand-accent-ink group-hover:bg-brand-background-wash/60">
-                <Play size={15} fill="currentColor" aria-hidden="true" />
-              </span>
-              See How It Works
-            </a>
+          <motion.h1 initial={reduceMotion ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.55, delay: 0.06 }} className="mt-6 text-balance font-display text-[clamp(3rem,6vw,5.6rem)] font-semibold leading-[0.98] tracking-[-0.05em] text-white">
+            Support for the work behind <span className="text-sky-300">every visit.</span>
+          </motion.h1>
+          <motion.p initial={reduceMotion ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.5, delay: 0.14 }} className="mt-6 max-w-xl text-base leading-relaxed text-slate-200 sm:text-lg">
+            Explore medical billing, credentialing, administrative support, and more. Start with the workflow your practice wants to improve and agree on a clear scope together.
+          </motion.p>
+          <motion.div initial={reduceMotion ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduceMotion ? 0 : 0.5, delay: 0.2 }} className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Button href="/contact" size="lg" showArrow>Request a Consultation</Button>
+            <Link href="/services" className="inline-flex min-h-14 items-center justify-center gap-2 rounded-full border border-white/30 px-6 text-sm font-bold text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+              Explore services <ArrowRight size={17} aria-hidden="true" />
+            </Link>
           </motion.div>
-
-          <motion.ul
-            initial={reducedMotion ? false : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: reducedMotion ? 0 : 0.48, delay: reducedMotion ? 0 : 0.3, ease: "easeOut" }}
-            className="mt-4 grid grid-cols-2 border-t border-brand-border/80 sm:grid-cols-4 lg:mt-5"
-          >
-            {features.map(({ label, icon: Icon }, index) => (
-              <li
-                key={label}
-                className={[
-                  "flex min-h-20 flex-col items-start gap-2 py-3 pr-3",
-                  index % 2 === 0 ? "border-r border-brand-border/80" : "pl-4",
-                  index < 2 ? "border-b border-brand-border/80 sm:border-b-0" : "",
-                  index === 2 ? "sm:border-l sm:border-brand-border/80 sm:pl-4" : "",
-                  index === 3 ? "sm:pl-4" : "",
-                ].join(" ")}
-              >
-                <span className="grid size-9 place-items-center rounded-xl border border-brand-accent/15 bg-brand-peach/65 text-brand-accent-ink shadow-sm">
-                  <Icon size={17} strokeWidth={1.8} aria-hidden="true" />
-                </span>
-                <span className="text-xs font-bold leading-snug text-brand-dark sm:text-sm">
-                  {label}
-                </span>
-              </li>
-            ))}
-          </motion.ul>
-
-
+          <ul className="mt-9 grid gap-3 border-t border-white/15 pt-6 sm:grid-cols-3">
+            {principles.map((item) => <li key={item} className="flex items-center gap-2 text-xs font-semibold text-slate-200 sm:text-sm"><Check size={16} className="shrink-0 text-brand-mint" aria-hidden="true" />{item}</li>)}
+          </ul>
         </div>
-
-        <HeroVisual heroImage={heroImage} />
+        <motion.div initial={reduceMotion ? false : { opacity: 0, y: 22, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: reduceMotion ? 0 : 0.65, delay: 0.15 }} className="relative">
+          <HeroVisual />
+        </motion.div>
       </Container>
+      <WaveDivider tone="to-light" />
     </section>
   );
 }
-

@@ -3,41 +3,27 @@
 import { useEffect, useRef, useState } from "react";
 
 type WaveDividerProps = {
+  tone?: "to-light" | "to-dark";
   className?: string;
 };
 
-/** Three decorative SVG wave layers that pause when they leave the viewport. */
-export function WaveDivider({ className = "" }: WaveDividerProps) {
+export function WaveDivider({ tone = "to-light", className = "" }: WaveDividerProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
     const element = rootRef.current;
     if (!element || typeof IntersectionObserver === "undefined") return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { rootMargin: "80px 0px" },
-    );
-
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { rootMargin: "80px 0px" });
     observer.observe(element);
     return () => observer.disconnect();
   }, []);
-
+  const fill = tone === "to-dark" ? "rgb(var(--cs-navy))" : "rgb(var(--cs-background))";
   return (
-    <div
-      ref={rootRef}
-      aria-hidden="true"
-      className={[
-        "wave-divider pointer-events-none relative h-16 w-full overflow-hidden sm:h-20 lg:h-24",
-        isVisible ? "wave-divider--visible" : "",
-        className,
-      ].filter(Boolean).join(" ")}
-    >
-      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 1440 120" preserveAspectRatio="none" focusable="false">
-        <path className="wave-divider__layer wave-divider__layer--one" d="M0 36 C180 82 330 94 520 65 C720 34 890 4 1080 35 C1230 60 1330 75 1440 45 V120 H0 Z" fill="rgb(var(--cs-sky) / 0.18)" />
-        <path className="wave-divider__layer wave-divider__layer--two" d="M0 58 C170 24 330 20 500 52 C680 86 840 102 1010 70 C1190 36 1310 30 1440 58 V120 H0 Z" fill="rgb(var(--cs-mint) / 0.14)" />
-        <path className="wave-divider__layer wave-divider__layer--three" d="M0 78 C190 52 350 52 530 76 C720 102 880 108 1060 86 C1220 67 1330 62 1440 78 V120 H0 Z" fill="rgb(var(--cs-accent) / 0.08)" />
+    <div ref={rootRef} aria-hidden="true" className={`wave-divider pointer-events-none relative h-14 w-full overflow-hidden sm:h-20 ${visible ? "wave-divider--visible" : ""} ${className}`}>
+      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 1440 100" preserveAspectRatio="none" focusable="false">
+        <path className="wave-divider__layer wave-divider__layer--one" d="M0 24 C180 66 320 75 510 48 C700 20 900 6 1080 32 C1230 54 1350 65 1440 36 V100 H0 Z" fill={fill} opacity=".35" />
+        <path className="wave-divider__layer wave-divider__layer--two" d="M0 48 C170 18 335 16 510 48 C685 80 850 84 1035 60 C1200 38 1320 34 1440 54 V100 H0 Z" fill={fill} opacity=".62" />
+        <path className="wave-divider__layer wave-divider__layer--three" d="M0 68 C180 47 350 48 535 69 C720 88 900 90 1080 74 C1240 60 1340 57 1440 70 V100 H0 Z" fill={fill} />
       </svg>
     </div>
   );

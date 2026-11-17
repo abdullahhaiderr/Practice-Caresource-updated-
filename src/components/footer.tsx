@@ -2,96 +2,43 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Mail } from "lucide-react";
 import { Container } from "@/components/container";
-import { footerContact, footerQuickLinks, services } from "@/lib/site";
+import { WaveDivider } from "@/components/wave-divider";
+import { footerContact, footerQuickLinks, services, siteConfig } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="bg-brand-dark text-brand-background">
-      <Container className="py-10 sm:py-12 lg:py-14">
-        <div className="grid gap-12 border-b border-brand-background/15 pb-12 md:grid-cols-[1.3fr_0.7fr_0.9fr_1fr] md:gap-8 lg:pb-16">
-          <div className="max-w-sm">
-            <Link href="/" aria-label="Practice Care Source home" className="inline-block rounded-md">
-              <Image
-                src="/logo.png"
-                alt="Practice Care Source"
-                width={219}
-                height={60}
-                className="h-auto w-[194px]"
-              />
-            </Link>
-            <p className="mt-5 max-w-xs text-base leading-relaxed text-brand-background/75">
-              {footerContact.tagline}
-            </p>
+    <>
+      <div className="bg-white"><WaveDivider tone="to-dark" /></div>
+      <footer className="bg-brand-navy text-white">
+        <Container className="pb-9 pt-4 sm:pb-12">
+          <div className="grid gap-10 border-b border-white/15 pb-10 sm:grid-cols-2 lg:grid-cols-[1.25fr_0.75fr_0.9fr_1fr] lg:gap-8 lg:pb-14">
+            <div className="max-w-sm">
+              <Link href="/" aria-label="Practice Care Source home" className="inline-flex rounded-xl bg-white p-2">
+                <Image src="/logo.png" alt="Practice Care Source" width={219} height={60} className="h-auto w-[190px]" />
+              </Link>
+              <p className="mt-5 text-sm leading-relaxed text-slate-300">{footerContact.tagline}</p>
+              {siteConfig.serviceArea ? <p className="mt-3 text-xs text-slate-400">{siteConfig.serviceArea}</p> : null}
+            </div>
+            <div>
+              <h2 className="font-display text-lg font-semibold">Explore</h2>
+              <ul className="mt-4 space-y-3">{footerQuickLinks.map((link) => <li key={link.href}><Link href={link.href} className="text-sm text-slate-300 transition-colors hover:text-white">{link.label}</Link></li>)}</ul>
+            </div>
+            <div>
+              <h2 className="font-display text-lg font-semibold">Services</h2>
+              <ul className="mt-4 space-y-3">{services.map((service) => <li key={service.slug}><Link href={`/services/${service.slug}`} className="text-sm text-slate-300 transition-colors hover:text-white">{service.shortTitle}</Link></li>)}</ul>
+            </div>
+            <div>
+              <h2 className="font-display text-lg font-semibold">Get in touch</h2>
+              <a href={`mailto:${footerContact.email}`} className="mt-4 inline-flex items-start gap-2 text-sm text-slate-300 transition-colors hover:text-white"><Mail size={17} className="mt-0.5 shrink-0" aria-hidden="true" />{footerContact.email}<ArrowUpRight size={14} className="mt-0.5" aria-hidden="true" /></a>
+              <div><Link href="/contact" className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-full bg-brand-accent px-5 text-sm font-bold text-white transition-colors hover:bg-brand-accent-hover">Request a Consultation <ArrowUpRight size={15} aria-hidden="true" /></Link></div>
+            </div>
           </div>
-
-          <div>
-            <h2 className="font-display text-xl font-semibold text-brand-background">
-              Quick links
-            </h2>
-            <ul className="mt-4 space-y-2.5">
-              {footerQuickLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-brand-background/75 transition-colors hover:text-brand-accent focus-visible:outline-none"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <div className="flex flex-col gap-3 pt-6 text-xs leading-relaxed text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+            <p>© {new Date().getFullYear()} Practice Care Source. All rights reserved.</p>
+            <p>Website inquiries are for business purposes only. Do not submit patient information.</p>
           </div>
-
-          <div>
-            <h2 className="font-display text-xl font-semibold text-brand-background">
-              Services
-            </h2>
-            <ul className="mt-4 space-y-2.5">
-              {services.map((service) => (
-                <li key={service.slug}>
-                  <Link
-                    href={"/services/" + service.slug}
-                    className="text-sm text-brand-background/75 transition-colors hover:text-brand-accent focus-visible:outline-none"
-                  >
-                    {service.shortTitle}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="font-display text-xl font-semibold text-brand-background">
-              Contact
-            </h2>
-            <ul className="mt-4 space-y-3">
-              <li>
-                <a
-                  href={"mailto:" + footerContact.email}
-                  className="inline-flex items-start gap-2.5 text-sm text-brand-background/75 transition-colors hover:text-brand-accent focus-visible:outline-none"
-                >
-                  <Mail size={17} className="mt-0.5 shrink-0" aria-hidden="true" />
-                  <span>{footerContact.email}</span>
-                  <ArrowUpRight size={14} className="mt-0.5 shrink-0" aria-hidden="true" />
-                </a>
-              </li>
-            </ul>
-            <Link
-              href="/contact"
-              className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-pill bg-brand-accent px-5 text-sm font-bold text-brand-background transition-transform hover:-translate-y-0.5 focus-visible:outline-none"
-            >
-              Request a Consultation
-              <ArrowUpRight size={16} aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
-
-        <div className="flex flex-col gap-3 pt-6 text-sm text-brand-background/65 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Practice Care Source. All rights reserved.</p>
-          <p>The source of care for your practice.</p>
-        </div>
-      </Container>
-    </footer>
+        </Container>
+      </footer>
+    </>
   );
 }
-
